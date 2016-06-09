@@ -5,7 +5,7 @@
  * Access via Singleton, eg. Doo::conf()->BASE_PATH;
  */
 error_reporting(E_ALL | E_STRICT);
-date_default_timezone_set('Asia/Kuala_Lumpur');
+date_default_timezone_set('UTC');
 
 /**
  * for benchmark purpose, call Doo::benchmark() for time used.
@@ -91,13 +91,13 @@ $config['ERROR_404_ROUTE'] = '/error';
 /**
  * To enable autoloading, add directories which consist of the classes needed in your application. 
  *
- * $config['AUTOLOAD'] = array(
+ */$config['AUTOLOAD'] = array(
                             //internal directories, live in the app
-                            'class', 'model', 'module/example/controller', 
+                            'class', 'model', 
                             //external directories, live outside the app
                             '/var/php/library/classes'
                         );
-*/
+
 
 /**
  * you can include self defined config, retrieved via Doo::conf()->variable

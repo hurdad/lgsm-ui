@@ -56,7 +56,7 @@ class DooModelGen{
      * @param int $chmod Chmod for file manager
      * @param string $path Path to write the model class files
      */
-	public static function genMySQL($comments=true, $vrules=true, $extends='DooModel', $createBase=true, $baseSuffix='Base', $useAutoload=false, $chmod=null, $path=null) {
+	public static function genMySQL($comments=true, $vrules=true, $extends='DooModel', $createBase=false, $baseSuffix='Base', $useAutoload=false, $chmod=null, $path=null) {
         if($path===null){
             $path = Doo::conf()->SITE_PATH . Doo::conf()->PROTECTED_FOLDER . 'model/';
         }

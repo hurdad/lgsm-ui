@@ -158,7 +158,7 @@ class DooSqlMagic {
                 $this->pdo->exec("SET NAMES '". $this->dbconfig['charset']. "'");
             }
         }catch(PDOException $e){
-            throw new SqlMagicException('Failed to open the DB connection', SqlMagicException::DBConnectionError);
+            throw new SqlMagicException('Failed to open the DB connection: ' + $e->getMessage() , SqlMagicException::DBConnectionError);
         }
     }
 

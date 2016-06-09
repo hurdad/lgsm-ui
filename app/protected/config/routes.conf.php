@@ -53,10 +53,28 @@
  * $route['autoroute_force_dash'] = true;	//setting this to false or not defining it will keep auto routes accessible with the 2 URLs.
  *
  */
- 
-$route['*']['/'] = array('MainController', 'index');
-$route['*']['/error'] = array('ErrorController', 'index');
 
+$user = array('admin'=>'admin');
+
+//Desktop Web Site
+$route['get']['/'] = array('redirect', 'status');
+$route['get']['/admin'] = array('DesktopController', 'admin', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
+$route['get']['/deploy'] = array('DesktopController', 'deploy', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
+$route['get']['/status'] = array('DesktopController', 'status');
+
+
+$route['post']['/virtualbox/add/'] = array('VirtualBoxController', 'add');
+$route['post']['/virtualbox/stop/:id'] = array('VirtualBoxController', 'stop');
+$route['post']['/virtualbox/start/:id'] = array('VirtualBoxController', 'start');
+
+$route['post']['/service/start/'] = array('ServiceController', 'start');
+$route['post']['/service/startall/:vboxid'] = array('ServiceController', 'startall');
+$route['post']['/service/stop/'] = array('ServiceController', 'stop');
+$route['post']['/service/stopall/:vboxid'] = array('ServiceController', 'stopall');
+$route['post']['/service/update/'] = array('ServiceController', 'update');
+
+
+$route['*']['/error'] = array('ErrorController', 'index');
 
 //---------- Delete if not needed ------------
 $admin = array('admin'=>'1234');

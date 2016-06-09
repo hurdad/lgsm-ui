@@ -1,0 +1,1 @@
+INSERT INTO games (full_name,folder_name,default_script_name, launch_prefix, steamworks, hidden) VALUES ('Counter Strike: Source','csserver','csserver', 'steam://', 1, 0 );
