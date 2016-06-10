@@ -10,6 +10,19 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <style type="text/css">
+      .jumbotron {
+        margin-top: 80px;
+        border-radius: 0;
+        text-align: center;
+      }
+      .table td {
+         text-align: center;   
+      }
+      .table th {
+         text-align: center;   
+      }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,6 +54,85 @@
       </div>
     </nav>
 
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Deploy Game Servers</h1>
+      </div>
+
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<?php $cnt=0; foreach($this->data['games'] as $g => $vboxes): ?>
+        <div class="panel panel-primary">
+          <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
+            <div class="btn-group pull-right">
+              <a href="#" class="btn btn-success">Add Server</a>
+            </div>
+            <h4 class="panel-title" style="padding-top: 7.5px;">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
+                <?php echo $g; ?>
+              </a>
+            </h4>
+ 
+          </div>
+          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
+            <div class="panel-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>OS</th>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>Status</th>
+                    <th>Services</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                 <tbody>
+<?php foreach($vboxes as $v): ?>                
+                  <tr>
+                    <td><?php echo isset($v['query']) ? $v['query']['OSTypeId'] :  "N/A";?></td>
+                    <td><?php echo $v['data']['hostname'];?></td>
+                    <td><?php echo $v['data']['ip'];?></td>
+                    <td><?php echo isset($v['query']) ? $v['query']['state'] : "Unknown";?></td>
+                    <td><?php echo $v['cnt']; ?></td>
+                    <td width="300">
+                      <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            VM Options
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Start</a></li>
+                            <li><a href="#">Stop</a></li>
+                            <li><a href="#">Connect</a></li>
+                            <li><a href="#">Resize</a></li>
+                            <li><a href="#">Delete</a></li>
+                          </ul>
+                        </div>
+                        <div class="btn-group" role="group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Service Options
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">Start All</a></li>
+                            <li><a href="#">Stop All</a></li>
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Update</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+<?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>        
+<?php $cnt++; endforeach; ?>
+      </div>
+    </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

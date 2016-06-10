@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style type="text/css">
       .jumbotron {
-        margin-top: 50px;
+        margin-top: 80px;
         border-radius: 0;
         text-align: center;
       }
@@ -22,7 +22,6 @@
       .table th {
          text-align: center;   
       }
-
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -61,15 +60,15 @@
       </div>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php $cnt=0; foreach($this->data['servers'] as $g => $services): ?>
-        <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="heading<?php echo $cnt ?>">
+        <div class="panel panel-primary">
+          <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
             <h4 class="panel-title">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
-                <?php echo $g . " - " . $this->data['counts'][$g]['Players'] . " / " . $this->data['counts'][$g]['MaxPlayers']   ?>
+                <?php echo $g . " - " . $this->data['counts'][$g]['Players'] . " / " . $this->data['counts'][$g]['MaxPlayers']; ?>
               </a>
             </h4>
           </div>
-          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
+          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse <?php echo ($cnt==0)?'in' :''; ?>" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
             <div class="panel-body">
               <table class="table table-striped">
                 <thead>
@@ -77,13 +76,13 @@
                     <th>Server Name</th>
                     <th>Map</th>
                     <th>Players</th>
-                    <th>
+                    <th></th>
                   </tr>
                 </thead>
                  <tbody>
 <?php foreach($services as $s): ?>                
                   <tr>
-                    <td ><?php echo $s['query']['HostName'];?></td>
+                    <td><?php echo $s['query']['HostName'];?></td>
                     <td><?php echo $s['query']['Map'];?></td>
                     <td><?php echo $s['query']['Players'] . " / " . $s['query']['MaxPlayers'];?></td>
                     <td width="90"><a class="btn btn-sm btn-success" type="button" href="steam://connect/<?php echo $s['data']['ip']; echo ":"; echo $s['data']['port']; ?>">Connect</a></td>
@@ -94,8 +93,7 @@
             </div>
           </div>
         </div>        
-<?php $cnt++; endforeach; ?>
-        
+<?php $cnt++; endforeach; ?>     
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
