@@ -41,8 +41,21 @@ class DesktopController extends DooController {
 		    github";
 		$gits = Doo::db()->fetchAll($sql_git);
 
+		//base vbox images
+		$sql_images = "SELECT 
+		    id, name, glibc_version, architecture, username, ssh_password, ssh_key
+		FROM
+		    base_images";
+		$base_images = Doo::db()->fetchAll($sql_images);
+
+		$sql_query_engines = "SELECT 
+		    id, name, launch_uri
+		FROM
+		    query_engines";
+		$query_engines = Doo::db()->fetchAll($sql_query_engines);
+
 		//render view
-        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits));
+        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images, 'query_engines' => $query_engines));
 	}
 	
 	function deploy(){
@@ -70,7 +83,7 @@ class DesktopController extends DooController {
 
 			//get virtualboxes for each game
 			$sql_vboxes = "SELECT 
-			    virtualboxes.id, url, username, password, hostname, ip
+			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip
 			FROM
 			    virtualboxes
 			        JOIN

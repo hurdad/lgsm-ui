@@ -63,12 +63,12 @@
         <li><a data-target="#services" data-toggle="tab">Services</a></li>
         <li><a data-target="#virtualbox" data-toggle="tab">VirtualBox</a></li>
         <li><a data-target="#github" data-toggle="tab">GitHub</a></li>
-        <li><a data-target="#ssh-keys" data-toggle="tab">SSH Keys</a></li>
+        <li><a data-target="#base-images" data-toggle="tab">Base Images</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="games">
           <div class="btn-group pull-right">
-            <a href="#" class="btn btn-success">Add Game</a>
+            <button class="btn btn-success" action="add-game">Add Game</a>
           </div>
           <table class="table table-striped">
             <thead>
@@ -85,9 +85,9 @@
                   <tr>
                     <td ><?php echo $g['full_name'];?></td>
                     <td ><?php echo $g['folder_name'];?></td>
-                    <td ><?php echo $g['hidden'];?></td>
-                    <td width="90"><a class="btn btn-sm btn-info" type="button">Edit</a></td>
-                    <td width="90"><a class="btn btn-sm btn-danger" type="button">Delete</a></td>
+                    <td ><?php echo ($g['hidden'] == 1) ? "true" : "false"; ;?></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-game" game-id="<?php echo $g['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-game" game-id="<?php echo $g['id'];?>" type="button">Delete</a></td>
                   </tr>
 <?php endforeach; ?>
             </tbody>
@@ -99,7 +99,7 @@
             <div class="panel panel-primary">
               <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
                 <div class="btn-group pull-right">
-                  <a href="#" class="btn btn-success">Add Service</a>
+                  <button class="btn btn-success" action="add-service">Add Service</a>
                 </div>
                 <h4 class="panel-title" style="padding-top: 7.5px;">
                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
@@ -123,8 +123,8 @@
                       <tr>
                         <td><?php echo $s['script_name'];?></td>
                         <td><?php echo $s['port'];?></td>
-                        <td width="90"><a class="btn btn-sm btn-info" type="button">Edit</a></td>
-                        <td width="90"><a class="btn btn-sm btn-danger" type="button">Delete</a></td>
+                        <td width="90"><button class="btn btn-sm btn-info" action="edit-service" service-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
+                        <td width="90"><button class="btn btn-sm btn-danger" action="delete-service" service-id="<?php echo $s['id'];?>" type="button">Delete</a></td>
                       </tr>
 <?php endforeach; ?>
                     </tbody>
@@ -144,7 +144,6 @@
               <tr>
                 <th>url</th>
                 <th>username</th>
-                <th>pw</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -154,9 +153,8 @@
                   <tr>
                     <td><?php echo $e['url'];?></td>
                     <td><?php echo $e['username'];?></td>
-                    <td><?php echo $e['password'];?></td>
-                    <td width="90"><a class="btn btn-sm btn-info" type="button">Edit</a></td>
-                    <td width="90"><a class="btn btn-sm btn-danger" type="button">Delete</a></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-vbox" vbox-id="<?php echo $e['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-vbox" vbox-id="<?php echo $e['id'];?>" type="button">Delete</a></td>
                   </tr>
 <?php endforeach; ?>
             </tbody>
@@ -182,22 +180,272 @@
                     <td><?php echo $g['url'];?></td>
                     <td><?php echo $g['branch'];?></td>
                     <td><?php echo $g['username'];?></td>
-                    <td width="90"><a class="btn btn-sm btn-info" type="button">Edit</a></td>
-                    <td width="90"><a class="btn btn-sm btn-danger" type="button">Delete</a></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-github" github-id="<?php echo $g['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-github" github-id="<?php echo $g['id'];?>" type="button">Delete</a></td>
+                  </tr>
+<?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane" id="base-images">
+          <div class="btn-group pull-right">
+            <a href="#" class="btn btn-success">Add Image</a>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Virtual Box VM</th>
+                <th>Architecture</th>
+                <th>GLIBC version</th>
+                <th>Username</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+<?php foreach($this->data['base_images'] as $i): ?>                
+                  <tr>
+                    <td><?php echo $i['name'];?></td>
+                    <td><?php echo $i['architecture'];?></td>
+                    <td><?php echo $i['glibc_version'];?></td>
+                    <td><?php echo $i['username'];?></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-baseimage" baseimage-id="<?php echo $i['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-baseimage" baseimage-id="<?php echo $i['id'];?>" type="button">Delete</a></td>
                   </tr>
 <?php endforeach; ?>
             </tbody>
           </table>
 
         </div>
-        <div class="tab-pane" id="ssh-keys">sshkey</div>
       </div>
+    </div><!-- /container -->
 
+    <!-- confirmation delete modal -->
+    <div class="modal fade" id="confirmation-delete-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirmation</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <div id="confirmation-delete-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a id="continue-delete-button" href="#" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- game edit modal -->
+    <div class="modal fade" id="edit-game-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Game Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-game-name-text" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-game-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-game-folder-text" class="col-sm-3 control-label">Github Folder</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-game-folder-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-game-glibc-text" class="col-sm-3 control-label">GLIBC Min Version</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-game-glibc-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-game-query-engine-select" class="col-sm-3 control-label">Query Engine</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="edit-game-query-engine-select">
+<?php foreach($this->data['query_engines'] as $q) : ?>
+                      <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="edit-game-hidden-checkbox">Hidden</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-game-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-game-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- game add modal -->
+    <div class="modal fade" id="add-game-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Game Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-game-name-text" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-game-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-game-folder-text" class="col-sm-3 control-label">Github Folder</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-game-folder-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-game-glibc-text" class="col-sm-3 control-label">GLIBC Min Version</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-game-glibc-text">
+                </div>
+              </div>
+               <div class="form-group">
+                <label for="add-game-query-engine-select" class="col-sm-3 control-label">Query Engine</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="add-game-query-engine-select">
+<?php foreach($this->data['query_engines'] as $q) : ?>
+                      <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="add-game-hidden-checkbox">Hidden</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-game-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-game-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- service edit modal -->
+    <div class="modal fade" id="edit-service-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Service Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-service-game-select" class="col-sm-3 control-label">Game</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="edit-service-game-select">
+<?php foreach($this->data['games'] as $g) : ?>
+                      <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-service-name-text" class="col-sm-3 control-label">GitHub Script Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-service-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-service-port-text" class="col-sm-3 control-label">Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-service-port-text">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-service-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-service-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- service add modal -->
+    <div class="modal fade" id="add-service-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Service Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-service-game-select" class="col-sm-3 control-label">Game</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="add-service-game-select">
+<?php foreach($this->data['games'] as $g) : ?>
+                      <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-service-name-text" class="col-sm-3 control-label">GitHub Script Name</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-service-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-service-port-text" class="col-sm-3 control-label">Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-service-port-text">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-service-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-service-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="global/js/admin-game.js"></script>
+    <script src="global/js/admin-service.js"></script>
   </body>
 </html>

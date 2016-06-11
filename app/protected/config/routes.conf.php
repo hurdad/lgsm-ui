@@ -54,7 +54,8 @@
  *
  */
 
-$user = array('admin'=>'admin');
+//admin user account
+include "user.conf.php";
 
 //Desktop Web Site
 $route['get']['/'] = array('redirect', 'status');
@@ -62,11 +63,12 @@ $route['get']['/admin'] = array('DesktopController', 'admin', 'authName'=>'lgsm-
 $route['get']['/deploy'] = array('DesktopController', 'deploy', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
 $route['get']['/status'] = array('DesktopController', 'status');
 
-
+//vbox routes
 $route['post']['/virtualbox/add/'] = array('VirtualBoxController', 'add');
 $route['post']['/virtualbox/stop/:id'] = array('VirtualBoxController', 'stop');
 $route['post']['/virtualbox/start/:id'] = array('VirtualBoxController', 'start');
 
+//service routes (ssh)
 $route['post']['/service/start/'] = array('ServiceController', 'start');
 $route['post']['/service/startall/:vboxid'] = array('ServiceController', 'startall');
 $route['post']['/service/stop/'] = array('ServiceController', 'stop');
@@ -75,6 +77,9 @@ $route['post']['/service/update/'] = array('ServiceController', 'update');
 
 
 $route['*']['/error'] = array('ErrorController', 'index');
+
+//------------------- DB REST Controllers ------------
+include('db.routes.conf.php');
 
 //---------- Delete if not needed ------------
 $admin = array('admin'=>'1234');
