@@ -99,15 +99,15 @@
             <div class="panel panel-primary">
               <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
                 <div class="btn-group pull-right">
-                  <button class="btn btn-success" action="add-service">Add Service</a>
+                  <button class="btn btn-success" action="add-service" game-id="<?php echo explode("|", $g)[1];?>">Add Service</a>
                 </div>
                 <h4 class="panel-title" style="padding-top: 7.5px;">
                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
-                    <?php echo $g;?>
+                    <?php echo explode("|", $g)[0] . " (" . count($services) . ")";?>
                   </a>
                 </h4>
               </div>
-              <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
+              <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
                 <div class="panel-body">
                   <table class="table table-striped">
                     <thead>
@@ -137,7 +137,7 @@
         </div>
         <div class="tab-pane" id="virtualbox">
           <div class="btn-group pull-right">
-            <a href="#" class="btn btn-success">Add Virtualbox Soap Server</a>
+            <button class="btn btn-success" action="add-vbox">Add Virtualbox Soap Server</a>
           </div>
           <table class="table table-striped">
             <thead>
@@ -162,7 +162,7 @@
         </div>
         <div class="tab-pane" id="github">
           <div class="btn-group pull-right">
-            <a href="#" class="btn btn-success">Add Github Repo</a>
+            <button class="btn btn-success" action="add-github">Add Github Repo</a>
           </div>
           <table class="table table-striped">
             <thead>
@@ -189,7 +189,7 @@
         </div>
         <div class="tab-pane" id="base-images">
           <div class="btn-group pull-right">
-            <a href="#" class="btn btn-success">Add Image</a>
+            <button class="btn btn-success" action="add-baseimage">Add Image</a>
           </div>
           <table class="table table-striped">
             <thead>
@@ -197,7 +197,7 @@
                 <th>Virtual Box VM</th>
                 <th>Architecture</th>
                 <th>GLIBC version</th>
-                <th>Username</th>
+                <th>SH Username</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -440,6 +440,314 @@
       </div>
     </div>
 
+    <!-- vbox edit modal -->
+    <div class="modal fade" id="edit-vbox-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">VirtualBox Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+             <div class="form-group">
+                <label for="edit-vbox-url-text" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-vbox-url-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-vbox-username-text" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-vbox-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-vbox-password-password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="edit-vbox-password-password">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-vbox-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-vbox-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- vbox add modal -->
+    <div class="modal fade" id="add-vbox-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">VirtualBox Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-vbox-url-text" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-vbox-url-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vbox-username-text" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-vbox-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vbox-password-password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="add-vbox-password-password">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-vbox-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-vbox-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- github edit modal -->
+    <div class="modal fade" id="edit-github-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Github Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+             <div class="form-group">
+                <label for="edit-github-url-text" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-github-url-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-github-branch-text" class="col-sm-3 control-label">Branch</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-github-branch-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-github-username-text" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-github-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-github-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" rows="5" id="edit-github-sshkey-textarea"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-github-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-github-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- github add modal -->
+    <div class="modal fade" id="add-github-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Github Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+             <div class="form-group">
+                <label for="add-github-url-text" class="col-sm-3 control-label">URL</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-github-url-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-github-branch-text" class="col-sm-3 control-label">Branch</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-github-branch-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-github-username-text" class="col-sm-3 control-label">Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-github-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-github-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" rows="5" id="add-github-sshkey-textarea"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-github-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-github-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- baseimage edit modal -->
+    <div class="modal fade" id="edit-baseimage-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Base Image Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-baseimage-vbox-select" class="col-sm-3 control-label">Virtual Box Instance</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="edit-baseimage-vbox-select">
+<?php foreach($this->data['vbox_soap_endpoints'] as $v) : ?>
+                      <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-name-text" class="col-sm-3 control-label">Virtual Box VM</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-baseimage-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-arch-select" class="col-sm-3 control-label">Architecture</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="edit-baseimage-arch-select">
+                      <option>32 bit</option>
+                      <option>64 bit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-glibc-text" class="col-sm-3 control-label">GLIBC Version</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-baseimage-glibc-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-username-text" class="col-sm-3 control-label">SSH Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-baseimage-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-password-text" class="col-sm-3 control-label">SSH Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="edit-baseimage-password-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-baseimage-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" rows="5" id="edit-baseimage-sshkey-textarea"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-baseimage-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-baseimage-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- baseimage add modal -->
+    <div class="modal fade" id="add-baseimage-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Base Image Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-baseimage-vbox-select" class="col-sm-3 control-label">Virtual Box Instance</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="add-baseimage-vbox-select">
+<?php foreach($this->data['vbox_soap_endpoints'] as $v) : ?>
+                      <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-name-text" class="col-sm-3 control-label">Virtual Box VM</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-baseimage-name-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-arch-select" class="col-sm-3 control-label">Architecture</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="add-baseimage-arch-select">
+                      <option>32 bit</option>
+                      <option>64 bit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-glibc-text" class="col-sm-3 control-label">GLIBC Version</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-baseimage-glibc-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-username-text" class="col-sm-3 control-label">SSH Username</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-baseimage-username-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-password-text" class="col-sm-3 control-label">SSH Password</label>
+                <div class="col-sm-8">
+                  <input type="password" class="form-control" id="add-baseimage-password-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
+                <div class="col-sm-8">
+                  <textarea class="form-control" rows="5" id="add-baseimage-sshkey-textarea"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-baseimage-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-baseimage-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -447,5 +755,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="global/js/admin-game.js"></script>
     <script src="global/js/admin-service.js"></script>
+    <script src="global/js/admin-vbox.js"></script>
+    <script src="global/js/admin-github.js"></script>
+    <script src="global/js/admin-baseimages.js"></script>
   </body>
 </html>

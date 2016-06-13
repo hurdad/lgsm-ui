@@ -1,5 +1,5 @@
 <?php
-    class DBServicesController extends DBRESTController
+    class DBVboxSoapEndpointsController extends DBRESTController
     {
         function __construct(){
             $this->model = 'VboxSoapEndpoints';

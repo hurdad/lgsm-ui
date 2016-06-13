@@ -16,7 +16,7 @@ class DesktopController extends DooController {
 
 		//get services
 		$sql_services = "SELECT 
-		    services.id, games.full_name, script_name, port
+		    games.id as games_id , services.id as id, games.full_name, script_name, port
 		FROM
 		    services
 		        JOIN
@@ -24,7 +24,7 @@ class DesktopController extends DooController {
 		ORDER BY full_name";
 		$services = array();
 		foreach(Doo::db()->fetchAll($sql_services) as $s){
-			$services[$s['full_name']][]= $s;
+			$services[$s['full_name'] . "|" . $s['games_id']][]= $s;
 		}
 
 		//vbox soap endpoints
