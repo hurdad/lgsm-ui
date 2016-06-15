@@ -48,7 +48,7 @@ class Games extends DooModel{
                 'query_engines_id' => array(
                         array( 'integer' ),
                         array( 'maxlength', 11 ),
-                        array( 'optional' ),
+                        array( 'notnull' ),
                 ),
 
                 'full_name' => array(

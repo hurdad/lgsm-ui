@@ -10,6 +10,7 @@ class DBRESTController extends DooController
         //set content type
         $this->contentType = 'json';
     }
+    
     public function afterRun($routeResult)
     {
         //Check for success Result

@@ -114,7 +114,6 @@ $(function() {
         $("#add-github-modal-save").click(function() {
 
             var github = {};
-            github.id = id;
             github.url = $("#add-github-url-text").val();
             github.branch = $("#add-github-branch-text").val();
             github.username = $("#add-github-username-text").val();

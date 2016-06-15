@@ -197,7 +197,7 @@
                 <th>Virtual Box VM</th>
                 <th>Architecture</th>
                 <th>GLIBC version</th>
-                <th>SH Username</th>
+                <th>SSH Username</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -271,9 +271,9 @@
               <div class="form-group">
                 <label for="edit-game-query-engine-select" class="col-sm-3 control-label">Query Engine</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="edit-game-query-engine-select">
+                  <select class="form-control" id="edit-game-query-engine-select">
 <?php foreach($this->data['query_engines'] as $q) : ?>
-                      <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
+                    <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>
@@ -328,9 +328,9 @@
                <div class="form-group">
                 <label for="add-game-query-engine-select" class="col-sm-3 control-label">Query Engine</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="add-game-query-engine-select">
+                  <select class="form-control" id="add-game-query-engine-select">
 <?php foreach($this->data['query_engines'] as $q) : ?>
-                      <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
+                    <option value="<?php echo $q['id'];?>"><?php echo $q['name'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>
@@ -367,9 +367,9 @@
               <div class="form-group">
                 <label for="edit-service-game-select" class="col-sm-3 control-label">Game</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="edit-service-game-select">
+                  <select class="form-control" id="edit-service-game-select">
 <?php foreach($this->data['games'] as $g) : ?>
-                      <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
+                    <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>
@@ -410,9 +410,9 @@
               <div class="form-group">
                 <label for="add-service-game-select" class="col-sm-3 control-label">Game</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="add-service-game-select">
+                  <select class="form-control" id="add-service-game-select">
 <?php foreach($this->data['games'] as $g) : ?>
-                      <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
+                    <option value="<?php echo $g['id'];?>"><?php echo $g['full_name'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>
@@ -621,9 +621,9 @@
               <div class="form-group">
                 <label for="edit-baseimage-vbox-select" class="col-sm-3 control-label">Virtual Box Instance</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="edit-baseimage-vbox-select">
+                  <select class="form-control" id="edit-baseimage-vbox-select">
 <?php foreach($this->data['vbox_soap_endpoints'] as $v) : ?>
-                      <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
+                    <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>
@@ -691,9 +691,9 @@
               <div class="form-group">
                 <label for="add-baseimage-vbox-select" class="col-sm-3 control-label">Virtual Box Instance</label>
                 <div class="col-sm-8">
-                    <select class="form-control" id="add-baseimage-vbox-select">
+                  <select class="form-control" id="add-baseimage-vbox-select">
 <?php foreach($this->data['vbox_soap_endpoints'] as $v) : ?>
-                      <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
+                    <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
 <?php endforeach; ?>
                   </select>
                 </div>

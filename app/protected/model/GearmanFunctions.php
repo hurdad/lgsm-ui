@@ -1,7 +1,7 @@
 <?php
 Doo::loadCore('db/DooModel');
 
-class Services extends DooModel{
+class GearmanFunctions extends DooModel{
 
     /**
      * @var int Max length is 11.
@@ -9,33 +9,23 @@ class Services extends DooModel{
     public $id;
 
     /**
-     * @var int Max length is 11.
-     */
-    public $virtualboxes_id;
-
-    /**
-     * @var int Max length is 11.
-     */
-    public $games_id;
-
-    /**
      * @var varchar Max length is 45.
      */
-    public $script_name;
+    public $function_name;
 
     /**
      * @var int Max length is 11.
      */
-    public $port;
+    public $worker_count;
 
     /**
      * @var tinyint Max length is 1.
      */
-    public $is_default;
+    public $enabled;
 
-    public $_table = 'services';
+    public $_table = 'gearman_functions';
     public $_primarykey = 'id';
-    public $_fields = array('id','virtualboxes_id','games_id','script_name','port','is_default');
+    public $_fields = array('id','function_name','worker_count','enabled');
 
     public function getVRules() {
         return array(
@@ -45,30 +35,18 @@ class Services extends DooModel{
                         array( 'optional' ),
                 ),
 
-                'virtualboxes_id' => array(
-                        array( 'integer' ),
-                        array( 'maxlength', 11 ),
-                        array( 'optional' ),
-                ),
-
-                'games_id' => array(
-                        array( 'integer' ),
-                        array( 'maxlength', 11 ),
-                        array( 'notnull' ),
-                ),
-
-                'script_name' => array(
+                'function_name' => array(
                         array( 'maxlength', 45 ),
                         array( 'notnull' ),
                 ),
 
-                'port' => array(
+                'worker_count' => array(
                         array( 'integer' ),
                         array( 'maxlength', 11 ),
                         array( 'notnull' ),
                 ),
 
-                'is_default' => array(
+                'enabled' => array(
                         array( 'integer' ),
                         array( 'maxlength', 1 ),
                         array( 'notnull' ),

@@ -16,7 +16,7 @@ date_default_timezone_set('UTC');
 //For framework use. Must be defined. Use full absolute paths and end them with '/'      eg. /var/www/project/
 $config['SITE_PATH'] = realpath('..').'/app/';
 //$config['PROTECTED_FOLDER'] = 'protected/';
-$config['BASE_PATH'] = realpath('..').'/dooframework/';
+$config['BASE_PATH'] = realpath('..').'/include/dooframework/';
 
 //for production mode use 'prod'
 $config['APP_MODE'] = 'dev';
@@ -29,7 +29,7 @@ if(strpos($config['SUBFOLDER'], '/')!==0){
 	$config['SUBFOLDER'] = '/'.$config['SUBFOLDER'];
 }
 
-$config['APP_URL'] = 'http://'.$_SERVER['HTTP_HOST'].$config['SUBFOLDER'];
+$config['APP_URL'] = (isset($_SERVER['HTTP_HOST']) ? 'http://'.$_SERVER['HTTP_HOST'].$config['SUBFOLDER'] : '');
 //$config['AUTOROUTE'] = TRUE;
 $config['DEBUG_ENABLED'] = TRUE;
 

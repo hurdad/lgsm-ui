@@ -58,22 +58,22 @@
       <div class="jumbotron">
         <h1>Deploy Game Servers</h1>
       </div>
-
+      <div id="vm-alert" class="alert alert-danger"></div>
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php $cnt=0; foreach($this->data['games'] as $g => $vboxes): ?>
         <div class="panel panel-primary">
           <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
             <div class="btn-group pull-right">
-              <a href="#" class="btn btn-success">Add Server</a>
+              <button class="btn btn-success" action="add-vm" game-id="<?php echo explode("|", $g)[1];?>">Add Server</a>
             </div>
             <h4 class="panel-title" style="padding-top: 7.5px;">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
-                <?php echo $g; ?>
+                <?php echo explode("|", $g)[0] . " (" . count($vboxes) . ")";?>
               </a>
             </h4>
  
           </div>
-          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
+          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
             <div class="panel-body">
               <table class="table table-striped">
                 <thead>
@@ -81,7 +81,8 @@
                     <th>OS</th>
                     <th>Hostname</th>
                     <th>IP</th>
-                    <th>Status</th>
+                    <th>Deploy Status</th>
+                    <th>VM Status</th>
                     <th>Services</th>
                     <th></th>
                   </tr>
@@ -92,6 +93,7 @@
                     <td><?php echo isset($v['query']) ? $v['query']['OSTypeId'] :  "N/A";?></td>
                     <td><?php echo $v['data']['hostname'];?></td>
                     <td><?php echo $v['data']['ip'];?></td>
+                    <td><?php echo $v['data']['deploy_status'];?></td>
                     <td><?php echo isset($v['query']) ? $v['query']['state'] : "Unknown";?></td>
                     <td><?php echo $v['cnt']; ?></td>
                     <td width="300">
@@ -101,12 +103,12 @@
                             VM Options
                             <span class="caret"></span>
                           </button>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">Start</a></li>
-                            <li><a href="#">Stop</a></li>
-                            <li><a href="#">Connect</a></li>
-                            <li><a href="#">Resize</a></li>
-                            <li><a href="#">Delete</a></li>
+                          <ul class="dropdown-menu" id="vm-options">
+                            <li op="start" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start</a></li>
+                            <li op="stop" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop</a></li>
+                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Connect</a></li>
+                            <li op="resize" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
+                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
                           </ul>
                         </div>
                         <div class="btn-group" role="group">
@@ -114,11 +116,11 @@
                             Service Options
                             <span class="caret"></span>
                           </button>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">Start All</a></li>
-                            <li><a href="#">Stop All</a></li>
-                            <li><a href="#">Edit</a></li>
-                            <li><a href="#">Update</a></li>
+                          <ul class="dropdown-menu" id="service-options">
+                            <li op="startall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start All</a></li>
+                            <li op="stopall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop All</a></li>
+                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Edit</a></li>
+                            <li op="update"vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Update</a></li>
                           </ul>
                         </div>
                       </div>
@@ -131,6 +133,87 @@
           </div>
         </div>        
 <?php $cnt++; endforeach; ?>
+      </div>
+    </div>
+
+    <!-- vm add modal -->
+    <div class="modal fade" id="add-vm-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Deploy VM</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-vm-game-select" class="col-sm-3 control-label">Game</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="add-vm-game-select">
+<?php foreach($this->data['games'] as $g => $vboxes) : ?>
+                    <option value="<?php echo explode("|", $g)[1];?>"><?php echo explode("|", $g)[0];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-vbox-select" class="col-sm-3 control-label">Virtual Box</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="add-vm-vbox-select">
+<?php foreach($this->data['vbox_soap_endpoints'] as $v) : ?>
+                    <option value="<?php echo $v['id'];?>"><?php echo $v['url'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-image-select" class="col-sm-3 control-label">Base Image</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="add-vm-image-select">
+<?php foreach($this->data['base_images'] as $i) : ?>
+                    <option value="<?php echo $i['id'];?>"><?php echo $i['name'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-service-select" class="col-sm-3 control-label">Services</label>
+                <div class="col-sm-8">
+                  <select multiple class="form-control" id="add-vm-service-select">
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-github-select" class="col-sm-3 control-label">GitHub Repo</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="add-vm-github-select">
+<?php foreach($this->data['gits'] as $g) : ?>
+                    <option value="<?php echo $g['id'];?>"><?php echo $g['url'];?></option>
+<?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-cpu-text" class="col-sm-3 control-label">CPU</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-vm-cpu-text" placeholder="1">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vm-mem-text" class="col-sm-3 control-label">Memory (MB)</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-vm-mem-text" placeholder="1024">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-vm-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-vm-modal-save" class="btn btn-primary">Deploy + Install</a>
+          </div>
+        </div>
       </div>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

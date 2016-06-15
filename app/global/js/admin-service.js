@@ -117,7 +117,6 @@ $(function() {
         $("#add-service-modal-save").click(function() {
 
             var service = {};
-            service.id = id;
             service.games_id = $("#add-service-game-select").val();
             service.script_name = $("#add-service-name-text").val();
             service.port = $("#add-service-port-text").val();

@@ -21,11 +21,10 @@ $(function() {
                 success: function(response) {
                     if (response.success) {
                         console.log(response);
-
+                        $("#edit-game-query-engine-select").val(response.data.query_engines_id);
                         $("#edit-game-name-text").val(response.data.full_name);
                         $("#edit-game-folder-text").val(response.data.folder_name);
                         $("#edit-game-glibc-text").val(response.data.glibc_version_min);
-
                         $("#edit-game-hidden-checkbox").prop('checked', (response.data.hidden == 1 ? true: false));
 
                         id = response.data.id;
@@ -45,10 +44,10 @@ $(function() {
 
             var game = {};
             game.id = id;
+            game.query_engines_id = $("#edit-game-query-engine-select").val();
             game.full_name = $("#edit-game-name-text").val();
             game.folder_name = $("#edit-game-folder-text").val();
             game.glibc_version_min = $("#edit-game-glibc-text").val();
-           // game.query_engines = $("#edit-game-query-engine-select :selected").text();
             game.hidden = $("#edit-game-hidden-checkbox").is(':checked') ? 1: 0;
 
             $.ajax({
@@ -118,7 +117,7 @@ $(function() {
         $("#add-game-modal-save").click(function() {
 
             var game = {};
-            game.id = id;
+            game.query_engines_id = $("#add-game-query-engine-select").val();
             game.full_name = $("#add-game-name-text").val();
             game.folder_name = $("#add-game-folder-text").val();
             game.glibc_version_min = $("#add-game-glibc-text").val();

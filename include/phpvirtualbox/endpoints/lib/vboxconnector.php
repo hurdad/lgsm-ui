@@ -939,7 +939,7 @@ class vboxconnector {
 		global $_SESSION;
 
 		if(!@$this->skipSessionCheck && !$_SESSION['valid']) {
-			throw new Exception(trans('Not logged in.','UIUsers'),vboxconnector::PHPVB_ERRNO_FATAL);
+//			throw new Exception(trans('Not logged in.','UIUsers'),vboxconnector::PHPVB_ERRNO_FATAL);
 		}
 
 		$req = &$args[0];

@@ -112,7 +112,6 @@ $(function() {
         $("#add-vbox-modal-save").click(function() {
 
             var vbox = {};
-            vbox.id = id;
             vbox.url = $("#add-vbox-url-text").val();
             vbox.username = $("#add-vbox-username-text").val();
             vbox.password = $("#add-vbox-password-password").val();

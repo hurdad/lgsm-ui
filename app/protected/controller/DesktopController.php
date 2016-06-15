@@ -48,6 +48,7 @@ class DesktopController extends DooController {
 		    base_images";
 		$base_images = Doo::db()->fetchAll($sql_images);
 
+		//query images
 		$sql_query_engines = "SELECT 
 		    id, name, launch_uri
 		FROM
@@ -79,11 +80,12 @@ class DesktopController extends DooController {
 		foreach(Doo::db()->fetchAll($sql_games) as $game){
 
 			//init
-			$games[$game['full_name']] = array();
+			$games_key = $game['full_name'] . "|" . $game['id'];
+			$games[$games_key] = array();
 
 			//get virtualboxes for each game
 			$sql_vboxes = "SELECT 
-			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip
+			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip, deploy_status
 			FROM
 			    virtualboxes
 			        JOIN
@@ -106,7 +108,7 @@ class DesktopController extends DooController {
 					$vbox_conn = new vboxconnector(false, $conf);
 					$arr['query'] = $vbox_conn->remote_vboxGetMachines(array('vm'=>$vbox['hostname']))[0];
 				} catch (Exception $e) {
-				    //echo 'Caught exception: ',  $e->getMessage(), "\n";
+					//TODO
 				}
 
 				//get services for vbox
@@ -123,12 +125,33 @@ class DesktopController extends DooController {
 
 				$arr['cnt'] = $cnt;
 				$arr['data'] = $vbox;
-				$games[$game['full_name']][] = $arr; 
+				$games[$games_key][] = $arr; 
 			}
 		}
 
+		//vbox soap endpoints
+		$sql_vbox = "SELECT 
+		    id, url, username, password
+		FROM
+		    vbox_soap_endpoints";
+		$vbox_soap_endpoints = Doo::db()->fetchAll($sql_vbox);
+
+		//git repos
+		$sql_git = "SELECT 
+		    id, url, branch, username, 'key'
+		FROM
+		    github";
+		$gits = Doo::db()->fetchAll($sql_git);
+
+		//base vbox images
+		$sql_images = "SELECT 
+		    id, name, glibc_version, architecture, username, ssh_password, ssh_key
+		FROM
+		    base_images";
+		$base_images = Doo::db()->fetchAll($sql_images);
+
 		//render view
-        $this->renderc('deploy', array('games' => $games));
+        $this->renderc('deploy', array('games' => $games, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images));
 	}
 
 	function status(){

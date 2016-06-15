@@ -24,7 +24,7 @@ class BaseImages extends DooModel{
     public $glibc_version;
 
     /**
-     * @var enum '32','64').
+     * @var enum '32 bit','64 bit').
      */
     public $architecture;
 
