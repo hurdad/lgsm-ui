@@ -25,6 +25,7 @@ $(function() {
                         $("#edit-service-game-select").val(response.data.games_id);
                         $("#edit-service-name-text").val(response.data.script_name);
                         $("#edit-service-port-text").val(response.data.port);
+                        $("#edit-service-default-checkbox").prop('checked', (response.data.is_default == 1 ? true: false));
 
                         id = response.data.id;
                         $('#edit-service-modal').modal('show');
@@ -46,6 +47,7 @@ $(function() {
             service.games_id = $("#edit-service-game-select").val();
             service.script_name = $("#edit-service-name-text").val();
             service.port = $("#edit-service-port-text").val();
+            service.is_default = $("#edit-service-default-checkbox").is(':checked') ? 1: 0;
         
             $.ajax({
                 type: "PUT",
@@ -120,6 +122,7 @@ $(function() {
             service.games_id = $("#add-service-game-select").val();
             service.script_name = $("#add-service-name-text").val();
             service.port = $("#add-service-port-text").val();
+            service.is_default = $("#edit-service-default-checkbox").is(':checked') ? 1: 0;
          
             $.ajax({
                 type: "POST",

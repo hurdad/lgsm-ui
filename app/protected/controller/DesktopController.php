@@ -55,15 +55,22 @@ class DesktopController extends DooController {
 		    query_engines";
 		$query_engines = Doo::db()->fetchAll($sql_query_engines);
 
+		//query gearman job servers 
+		$sql_gearman_job_servers = "SELECT 
+		    id, hostname, port, enabled
+		FROM
+		    gearman_job_servers";
+		$query_gearman_job_servers = Doo::db()->fetchAll($sql_gearman_job_servers);
+
 		//render view
-        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images, 'query_engines' => $query_engines));
+        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images, 'query_engines' => $query_engines, 'gearman_job_servers' => $query_gearman_job_servers));
 	}
 	
 	function deploy(){
 
-		require_once(dirname(Doo::conf()->SITE_PATH).'/phpvirtualbox/endpoints/lib/config.php');
-		require_once(dirname(Doo::conf()->SITE_PATH).'/phpvirtualbox/endpoints/lib/utils.php');
-		require_once(dirname(Doo::conf()->SITE_PATH).'/phpvirtualbox/endpoints/lib/vboxconnector.php');
+		require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/config.php');
+		require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/utils.php');
+		require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/vboxconnector.php');
 
 		global $_SESSION;
 	
@@ -111,12 +118,15 @@ class DesktopController extends DooController {
 					//TODO
 				}
 
-				//get services for vbox
-				$sql_services ="SELECT port
-					FROM
-					    services
-					WHERE
-					    virtualboxes_id = " . $vbox['id'] . " AND games_id = " . $game['id'];
+				//get assiged services for vbox
+				$sql_services ="SELECT 
+				    port
+				FROM
+				    assigned_services
+				        JOIN
+				    services ON assigned_services.services_id = services.id
+				WHERE
+				    virtualboxes_id = " . $vbox['id'] . " AND games_id = " . $game['id'];
 
 				$cnt = 0;
 				foreach(Doo::db()->fetchAll($sql_services) as $service) {
@@ -156,21 +166,23 @@ class DesktopController extends DooController {
 
 	function status(){
 
-		require dirname(Doo::conf()->SITE_PATH) . "/PHP-Source-Query/SourceQuery/bootstrap.php";
+		require dirname(Doo::conf()->SITE_PATH) . "/include/PHP-Source-Query/SourceQuery/bootstrap.php";
 	
 		$sql = "SELECT 
-			    full_name, ip, port, query_engines.name AS query_engine_name
-			FROM
-			    virtualboxes
-			        JOIN
-			    games ON virtualboxes.games_id = games.id
-			        JOIN
-			    services ON virtualboxes.id = services.virtualboxes_id
-			        JOIN
-			    query_engines ON games.query_engines_id = query_engines.id
-			WHERE
-			    hidden = 0
-			ORDER BY full_name, port";
+		    full_name, ip, port, query_engines.name AS query_engine_name
+		FROM
+		    virtualboxes
+		        JOIN
+		    games ON virtualboxes.games_id = games.id
+		        JOIN
+		    assigned_services ON virtualboxes.id = assigned_services.virtualboxes_id
+		        JOIN
+		    services ON services.id = assigned_services.services_id
+		        JOIN
+		    query_engines ON games.query_engines_id = query_engines.id
+		WHERE
+		    hidden = 0
+		ORDER BY full_name , port";
 
 		//query database
 		$servers = array();

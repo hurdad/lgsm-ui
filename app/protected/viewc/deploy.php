@@ -180,7 +180,6 @@
                 <label for="add-vm-service-select" class="col-sm-3 control-label">Services</label>
                 <div class="col-sm-8">
                   <select multiple class="form-control" id="add-vm-service-select">
-
                   </select>
                 </div>
               </div>

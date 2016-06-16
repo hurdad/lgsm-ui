@@ -64,6 +64,7 @@
         <li><a data-target="#virtualbox" data-toggle="tab">VirtualBox</a></li>
         <li><a data-target="#github" data-toggle="tab">GitHub</a></li>
         <li><a data-target="#base-images" data-toggle="tab">Base Images</a></li>
+        <li><a data-target="#gearman" data-toggle="tab">Gearman Servers</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="games">
@@ -215,7 +216,33 @@
 <?php endforeach; ?>
             </tbody>
           </table>
-
+        </div>
+        <div class="tab-pane" id="gearman">
+          <div class="btn-group pull-right">
+            <button class="btn btn-success" action="add-gearman">Add Gearman Server</a>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Hostname</th>
+                <th>Port</th>
+                <th>Enabled</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+<?php foreach($this->data['gearman_job_servers'] as $i): ?>                
+                  <tr>
+                    <td><?php echo $i['hostname'];?></td>
+                    <td><?php echo $i['port'];?></td>
+                    <td><?php echo $i['enabled'];?></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-gearman" gearman-id="<?php echo $i['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-gearman" gearman-id="<?php echo $i['id'];?>" type="button">Delete</a></td>
+                  </tr>
+<?php endforeach; ?>
+            </tbody>
+          </table>
         </div>
       </div>
     </div><!-- /container -->
@@ -386,6 +413,14 @@
                   <input type="text" class="form-control" id="edit-service-port-text">
                 </div>
               </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="edit-service-default-checkbox">Default</label>
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -427,6 +462,14 @@
                 <label for="add-service-port-text" class="col-sm-3 control-label">Port</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" id="add-service-port-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="add-service-default-checkbox">Default</label>
+                  </div>
                 </div>
               </div>
             </form>
@@ -748,6 +791,88 @@
       </div>
     </div>
 
+    <!-- gearman edit modal -->
+    <div class="modal fade" id="edit-gearman-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Gearman Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-gearman-hostname-text" class="col-sm-3 control-label">Hostname</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-gearman-hostname-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-gearman-port-text" class="col-sm-3 control-label">Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-gearman-port-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="edit-gearman-enaabled-checkbox">Enabled</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-gearman-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-gearman-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- gearman add modal -->
+    <div class="modal fade" id="add-gearman-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Gearman Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="add-gearman-hostname-text" class="col-sm-3 control-label">Hostname</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-gearman-hostname-text" placeholder="localhost">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-gearman-port-text" class="col-sm-3 control-label">Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-gearman-port-text" placeholder="4730">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="add-gearman-enaabled-checkbox">Enabled</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="add-gearman-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="add-gearman-modal-save" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -758,5 +883,6 @@
     <script src="global/js/admin-vbox.js"></script>
     <script src="global/js/admin-github.js"></script>
     <script src="global/js/admin-baseimages.js"></script>
+    <script src="global/js/admin-gearman.js"></script>
   </body>
 </html>

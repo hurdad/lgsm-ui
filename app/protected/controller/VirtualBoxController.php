@@ -37,26 +37,31 @@ class VirtualBoxController extends DooController {
 		$this->initPutVars();
         $vm = new Virtualboxes($this->puts);
 
+		//get base image
         $image_id = $this->puts['image_id'];
-        $image = Doo::db()->getOne('BaseImages', 'where' => 'id = ?', 'params' => array($image_id));
+        $image = Doo::db()->getOne('BaseImages', array('where' => 'id = ?', 'param' => array($image_id)));
         if(!$image){
         	$this->res->message = "Base Image doesnt Exist!";
         	$this->res->success = false;
         	return;
         }
 
-        //$image->name
-
         $vm->deploy_status = "Initalizing..";
 
+        //database transaction
+        Doo::db()->beginTransaction();
 		try {
-
-			Doo::db()->beginTransaction();
 
 		  	//insert vm
             $new_id = $vm->insert();
 
             //insert services
+            foreach($this->puts['services'] as $s){
+ 				$as = new AssignedServices();
+ 				$as->services_id = $s;
+ 				$as->virtualboxes_id = $new_id;
+ 				$as->insert();
+            }
                   
             //commit
             Doo::db()->commit();

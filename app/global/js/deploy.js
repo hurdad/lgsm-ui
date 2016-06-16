@@ -24,8 +24,34 @@ $(function() {
  			//set game id
             $("#add-vm-game-select").val($(this).attr('game-id'));
 
-            //show
-            $('#add-vm-modal').modal('show');
+            //get game-id
+            game_id = $(this).attr('game-id');
+            $.ajax({
+                type: "GET",
+                url: 'util/services/' + game_id,
+                dataType: "json",
+                success: function(response) {
+                    if (response.success) {
+                        console.log(response);
+                        $('#add-vm-service-select').empty();
+                        $.each(response.data, function (i, item) {
+                            $('#add-vm-service-select').append($('<option>', { 
+                                value: item.id,
+                                text : item.script_name 
+                            }));
+                        });
+                   
+                    } else{
+                        //show alert
+                        $("#add-vbox-alert").empty();
+                        $("#add-vbox-alert").append(response.message);
+                        $("#add-vbox-alert").show();
+                    }
+
+                      //show
+                    $('#add-vm-modal').modal('show');
+               }
+           });
         });
 
         //vm add
@@ -38,8 +64,8 @@ $(function() {
         	vm.github_id = $("#add-vm-github-select").val();
             vm.cpu = $("#add-vm-cpu-text").val();
             vm.mem = $("#add-vm-mem-text").val();
-            vm.service = $("#add-vm-service-select").val();
-            vm.image = $("#add-vm-image-select").val();
+            vm.services = $("#add-vm-service-select").val();
+            vm.image_id = $("#add-vm-image-select").val();
          
             $.ajax({
                 type: "POST",

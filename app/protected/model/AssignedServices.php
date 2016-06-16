@@ -1,7 +1,7 @@
 <?php
 Doo::loadCore('db/DooModel');
 
-class Services extends DooModel{
+class AssignedServices extends DooModel{
 
     /**
      * @var int Max length is 11.
@@ -11,26 +11,16 @@ class Services extends DooModel{
     /**
      * @var int Max length is 11.
      */
-    public $games_id;
-
-    /**
-     * @var varchar Max length is 45.
-     */
-    public $script_name;
+    public $services_id;
 
     /**
      * @var int Max length is 11.
      */
-    public $port;
+    public $virtualboxes_id;
 
-    /**
-     * @var tinyint Max length is 1.
-     */
-    public $is_default;
-
-    public $_table = 'services';
+    public $_table = 'assigned_services';
     public $_primarykey = 'id';
-    public $_fields = array('id','games_id','script_name','port','is_default');
+    public $_fields = array('id','services_id','virtualboxes_id');
 
     public function getVRules() {
         return array(
@@ -40,26 +30,15 @@ class Services extends DooModel{
                         array( 'optional' ),
                 ),
 
-                'games_id' => array(
+                'services_id' => array(
                         array( 'integer' ),
                         array( 'maxlength', 11 ),
                         array( 'notnull' ),
                 ),
 
-                'script_name' => array(
-                        array( 'maxlength', 45 ),
-                        array( 'notnull' ),
-                ),
-
-                'port' => array(
+                'virtualboxes_id' => array(
                         array( 'integer' ),
                         array( 'maxlength', 11 ),
-                        array( 'notnull' ),
-                ),
-
-                'is_default' => array(
-                        array( 'integer' ),
-                        array( 'maxlength', 1 ),
                         array( 'notnull' ),
                 )
             );

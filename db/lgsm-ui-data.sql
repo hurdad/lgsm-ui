@@ -1,4 +1,11 @@
 
+INSERT INTO gearman_job_servers(hostname, port, enabled) VALUES('localhost', 4730, 1);
+
+INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('deploy', 1, 1);
+INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('update', 1, 1);
+INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('start', 1, 1);
+INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('stop', 1, 1);
+
 INSERT INTO github(url, branch) VALUES('https://github.com/dgibbs64/linuxgsm.git', 'master');
 
 INSERT INTO query_engines(name, launch_uri) VALUES('None' ,'');

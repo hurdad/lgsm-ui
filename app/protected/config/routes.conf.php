@@ -76,6 +76,8 @@ $route['post']['/service/stop/'] = array('ServiceController', 'stop',  'authName
 $route['post']['/service/stopall/:id'] = array('ServiceController', 'stopall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
 $route['post']['/service/update/'] = array('ServiceController', 'update',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
 
+//util routes
+$route['get']['/util/services/:games_id'] = array('UtilController', 'services', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
 
 //CLI Gearman Worker
 $route['cli']['worker'] = array('GearmanWorkerCLIController', 'worker');
