@@ -1,0 +1,476 @@
+PHP Notice:  Undefined index: snapshot in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 1353
+PHP Warning:  Missing argument 4 for IVirtualBox::composeMachineFilename(), called in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 1361 and defined in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 822
+PHP Notice:  Undefined variable: arg_baseFolder in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 829
+PHP Notice:  Undefined index: link in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 1371
+PHP Notice:  Trying to get property of non-object in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 5508
+PHP Notice:  Undefined index: sessionHandle in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2369
+PHP Notice:  Undefined variable: pop in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2390
+PHP Notice:  Undefined index: sessionHandle in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2369
+PHP Notice:  Undefined variable: pop in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2390
+PHP Notice:  Undefined index: sessionHandle in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2369
+PHP Notice:  Undefined variable: pop in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2390
+PHP Notice:  Undefined variable: pop in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2433
+PHP Notice:  Trying to get property of non-object in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxconnector.php on line 2484
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+PHP Notice:  Undefined property: stdClass::$names in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$values in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$timestamps in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined property: stdClass::$flags in /var/www/html/lgsm-ui/include/phpvirtualbox/endpoints/lib/vboxServiceWrappers.php on line 2487
+PHP Notice:  Undefined offset: 0 in /var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php on line 141
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.team-cymru.org
+ * epel: mirrors.mit.edu
+ * extras: ftpmirror.your.org
+ * updates: mirror.oss.ou.edu
+Resolving Dependencies
+--> Running transaction check
+---> Package glibc.i686 0:2.17-106.el7_2.6 will be installed
+--> Processing Dependency: libfreebl3.so(NSSRAWHASH_3.12.3) for package: glibc-2.17-106.el7_2.6.i686
+--> Processing Dependency: libfreebl3.so for package: glibc-2.17-106.el7_2.6.i686
+---> Package libstdc++.i686 0:4.8.5-4.el7 will be installed
+--> Processing Dependency: libgcc_s.so.1(GLIBC_2.0) for package: libstdc++-4.8.5-4.el7.i686
+--> Processing Dependency: libgcc_s.so.1(GCC_4.2.0) for package: libstdc++-4.8.5-4.el7.i686
+--> Processing Dependency: libgcc_s.so.1(GCC_3.3) for package: libstdc++-4.8.5-4.el7.i686
+--> Processing Dependency: libgcc_s.so.1(GCC_3.0) for package: libstdc++-4.8.5-4.el7.i686
+--> Processing Dependency: libgcc_s.so.1 for package: libstdc++-4.8.5-4.el7.i686
+---> Package tmux.x86_64 0:1.8-4.el7 will be installed
+--> Processing Dependency: libevent-2.0.so.5()(64bit) for package: tmux-1.8-4.el7.x86_64
+--> Running transaction check
+---> Package libevent.x86_64 0:2.0.21-4.el7 will be installed
+---> Package libgcc.i686 0:4.8.5-4.el7 will be installed
+---> Package nss-softokn-freebl.i686 0:3.16.2.3-14.2.el7_2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package                Arch       Version                    Repository   Size
+================================================================================
+Installing:
+ glibc                  i686       2.17-106.el7_2.6           updates     4.2 M
+ libstdc++              i686       4.8.5-4.el7                base        311 k
+ tmux                   x86_64     1.8-4.el7                  base        243 k
+Installing for dependencies:
+ libevent               x86_64     2.0.21-4.el7               base        214 k
+ libgcc                 i686       4.8.5-4.el7                base        103 k
+ nss-softokn-freebl     i686       3.16.2.3-14.2.el7_2        updates     187 k
+
+Transaction Summary
+================================================================================
+Install  3 Packages (+3 Dependent packages)
+
+Total download size: 5.2 M
+Installed size: 17 M
+Downloading packages:
+--------------------------------------------------------------------------------
+Total                                              1.2 MB/s | 5.2 MB  00:04     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libgcc-4.8.5-4.el7.i686                                      1/6 
+  Installing : nss-softokn-freebl-3.16.2.3-14.2.el7_2.i686                  2/6 
+  Installing : glibc-2.17-106.el7_2.6.i686                                  3/6 
+  Installing : libevent-2.0.21-4.el7.x86_64                                 4/6 
+  Installing : tmux-1.8-4.el7.x86_64                                        5/6 
+  Installing : libstdc++-4.8.5-4.el7.i686                                   6/6 
+  Verifying  : libgcc-4.8.5-4.el7.i686                                      1/6 
+  Verifying  : tmux-1.8-4.el7.x86_64                                        2/6 
+  Verifying  : libevent-2.0.21-4.el7.x86_64                                 3/6 
+  Verifying  : glibc-2.17-106.el7_2.6.i686                                  4/6 
+  Verifying  : libstdc++-4.8.5-4.el7.i686                                   5/6 
+  Verifying  : nss-softokn-freebl-3.16.2.3-14.2.el7_2.i686                  6/6 
+
+Installed:
+  glibc.i686 0:2.17-106.el7_2.6           libstdc++.i686 0:4.8.5-4.el7          
+  tmux.x86_64 0:1.8-4.el7                
+
+Dependency Installed:
+  libevent.x86_64 0:2.0.21-4.el7                   libgcc.i686 0:4.8.5-4.el7   
+  nss-softokn-freebl.i686 0:3.16.2.3-14.2.el7_2   
+
+Complete!
+    fetching core_dl.sh...[0;32mOK[0m
+    fetching core_functions.sh...[0;32mOK[0m
+    fetching core_messages.sh...[0;32mOK[0m
+    fetching core_getopt.sh...[0;32mOK[0m
+    fetching command_install.sh...[0;32mOK[0m
+    fetching check.sh...[0;32mOK[0m
+    fetching check_root.sh...[0;32mOK[0m
+    fetching check_permissions.sh...[0;32mOK[0m
+    fetching check_glibc.sh...[0;32mOK[0m
+    fetching info_glibc.sh...[0;32mOK[0m
+    fetching info_distro.sh...[0;32mOK[0m
+    fetching install_header.sh...[0;32mOK[0m
+TERM environment variable not set.
+=================================
+Counter Strike: Source
+Linux Game Server Manager
+by Daniel Gibbs
+Contributors: http://goo.gl/qLmitD
+https://gameservermanagers.com
+=================================
+    fetching install_server_dir.sh...[0;32mOK[0m
+
+Server Directory
+=================================
+
+/home/lgsm/linuxgsm/CounterStrikeSource
+
+mkdir: created directory ‘/home/lgsm/linuxgsm/CounterStrikeSource/serverfiles’
+    fetching install_logs.sh...[0;32mOK[0m
+
+Creating log directories
+=================================
+mkdir: created directory ‘/home/lgsm/linuxgsm/CounterStrikeSource/log’
+mkdir: created directory ‘/home/lgsm/linuxgsm/CounterStrikeSource/log/script’
+mkdir: created directory ‘/home/lgsm/linuxgsm/CounterStrikeSource/log/console’
+‘/home/lgsm/linuxgsm/CounterStrikeSource/log/server’ -> ‘/home/lgsm/linuxgsm/CounterStrikeSource/serverfiles/cstrike/logs’
+    fetching check_deps.sh...[0;32mOK[0m
+
+Checking Dependecies
+=================================
+[0;32mcurl[0m
+[0;32mutil-linux[0m
+[0;32mpython[0m
+[0;32mfile[0m
+[0;32mtmux[0m
+[0;32mglibc.i686[0m
+[0;32mlibstdc++.i686[0m
+    fetching install_steamcmd.sh...[0;32mOK[0m
+
+Installing SteamCMD
+=================================
+    fetching check_steamcmd.sh...[0;32mOK[0m
+mkdir: created directory ‘/home/lgsm/linuxgsm/CounterStrikeSource/steamcmd’
+    fetching steamcmd_linux.tar.gz...[0;32mOK[0m
+extracting steamcmd_linux.tar.gz...[0;32mOK[0m
+    fetching install_server_files.sh...[0;32mOK[0m
+
+Installing Counter Strike: Source Server
+=================================
+ERROR: ld.so: object '/usr/libexec/coreutils/libstdbuf.so' from LD_PRELOAD cannot be preloaded: ignored.
+Redirecting stderr to '/home/lgsm/Steam/logs/stderr.txt'
+ILocalize::AddFile() failed to load file "public/steambootstrapper_english.txt".
+[  0%] Checking for available update...
+[  0%] Downloading update (0 of 10,285 KB)...
+[  0%] Downloading update (544 of 10,285 KB)...
+[  5%] Downloading update (1,542 of 10,285 KB)...
+[ 14%] Downloading update (2,558 of 10,285 KB)...
+[ 24%] Downloading update (3,230 of 10,285 KB)...
+[ 31%] Downloading update (3,570 of 10,285 KB)...
+[ 34%] Downloading update (3,906 of 10,285 KB)...
+[ 37%] Downloading update (4,236 of 10,285 KB)...
+[ 41%] Downloading update (4,598 of 10,285 KB)...
+[ 44%] Downloading update (4,918 of 10,285 KB)...
+[ 47%] Downloading update (5,254 of 10,285 KB)...
+[ 51%] Downloading update (5,710 of 10,285 KB)...
+[ 55%] Downloading update (6,297 of 10,285 KB)...
+[ 61%] Downloading update (6,856 of 10,285 KB)...
+[ 66%] Downloading update (7,425 of 10,285 KB)...
+[ 72%] Downloading update (8,022 of 10,285 KB)...
+[ 78%] Downloading update (8,702 of 10,285 KB)...
+[ 84%] Downloading update (9,282 of 10,285 KB)...
+[ 90%] Downloading update (9,883 of 10,285 KB)...
+[ 96%] Downloading update (10,285 of 10,285 KB)...
+[100%] Download Complete.
+[----] Applying update...
+[----] Extracting package...
+[----] Extracting package...
+[----] Extracting package...
+[----] Installing update...
+[----] Installing update...
+[----] Installing update...
+[----] Cleaning up...
+[----] Update complete, launching...
+ERROR: ld.so: object '/usr/libexec/coreutils/libstdbuf.so' from LD_PRELOAD cannot be preloaded: ignored.
+Redirecting stderr to '/home/lgsm/Steam/logs/stderr.txt'
+[  0%] Checking for available updates...
+[----] Downloading update (0 of 7,162 KB)...
+[  0%] Downloading update (534 of 7,162 KB)...
+[  7%] Downloading update (1,532 of 7,162 KB)...
+[ 21%] Downloading update (2,413 of 7,162 KB)...
+[ 33%] Downloading update (2,823 of 7,162 KB)...
+[ 39%] Downloading update (3,162 of 7,162 KB)...
+[ 44%] Downloading update (3,507 of 7,162 KB)...
+[ 48%] Downloading update (3,815 of 7,162 KB)...
+[ 53%] Downloading update (4,119 of 7,162 KB)...
+[ 57%] Downloading update (4,425 of 7,162 KB)...
+[ 61%] Downloading update (4,729 of 7,162 KB)...
+[ 66%] Downloading update (5,085 of 7,162 KB)...
+[ 71%] Downloading update (5,396 of 7,162 KB)...
+[ 75%] Downloading update (5,702 of 7,162 KB)...
+[ 79%] Downloading update (6,011 of 7,162 KB)...
+[ 83%] Downloading update (6,321 of 7,162 KB)...
+[ 88%] Downloading update (6,628 of 7,162 KB)...
+[ 92%] Downloading update (6,932 of 7,162 KB)...
+[ 96%] Downloading update (7,162 of 7,162 KB)...
+[100%] Download complete.
+[----] Installing update...
+[----] Extracting package...
+[----] Extracting package...
+[----] Extracting package...
+[----] Installing update...
+[----] Installing update...
+[----] Installing update...
+[----] Cleaning up...
+[----] Update complete, launching Steam...
+ERROR: ld.so: object '/usr/libexec/coreutils/libstdbuf.so' from LD_PRELOAD cannot be preloaded: ignored.
+Redirecting stderr to '/home/lgsm/Steam/logs/stderr.txt'
+[  0%] Checking for available updates...
+[----] Verifying installation...
+Steam Console Client (c) Valve Corporation
+-- type 'quit' to exit --
+Loading Steam API...Created shared memory when not owner SteamController_Shared_mem
+OK.
+
+Connecting anonymously to Steam Public...Logged in OK
+Waiting for license info...OK
+ Update state (0x3) reconfiguring, progress: 0.00 (0 / 0)
+ Update state (0x61) downloading, progress: 0.00 (6728 / 2284840496)
+ Update state (0x61) downloading, progress: 0.42 (9558463 / 2284840496)
+ Update state (0x61) downloading, progress: 1.01 (23189951 / 2284840496)
+ Update state (0x61) downloading, progress: 1.84 (42062733 / 2284840496)
+ Update state (0x61) downloading, progress: 2.53 (57791373 / 2284840496)
+ Update state (0x61) downloading, progress: 3.17 (72471437 / 2284840496)
+ Update state (0x61) downloading, progress: 3.81 (87151501 / 2284840496)
+ Update state (0x61) downloading, progress: 4.37 (99734413 / 2284840496)
+ Update state (0x61) downloading, progress: 4.78 (109171597 / 2284840496)
+ Update state (0x61) downloading, progress: 5.59 (127817587 / 2284840496)
+ Update state (0x61) downloading, progress: 6.74 (154031987 / 2284840496)
+ Update state (0x61) downloading, progress: 7.80 (178149235 / 2284840496)
+ Update state (0x61) downloading, progress: 8.35 (190732147 / 2284840496)
+ Update state (0x61) downloading, progress: 9.38 (214402509 / 2284840496)
+ Update state (0x61) downloading, progress: 10.03 (229082573 / 2284840496)
+ Update state (0x61) downloading, progress: 10.79 (246558226 / 2284840496)
+ Update state (0x61) downloading, progress: 11.71 (267529746 / 2284840496)
+ Update state (0x61) downloading, progress: 12.57 (287198102 / 2284840496)
+ Update state (0x61) downloading, progress: 13.53 (309218198 / 2284840496)
+ Update state (0x61) downloading, progress: 14.08 (321801110 / 2284840496)
+ Update state (0x61) downloading, progress: 15.05 (343821206 / 2284840496)
+ Update state (0x61) downloading, progress: 16.01 (365841302 / 2284840496)
+ Update state (0x61) downloading, progress: 17.11 (391007126 / 2284840496)
+ Update state (0x61) downloading, progress: 17.80 (406735766 / 2284840496)
+ Update state (0x61) downloading, progress: 18.67 (426658710 / 2284840496)
+ Update state (0x61) downloading, progress: 19.36 (442387350 / 2284840496)
+ Update state (0x61) downloading, progress: 20.14 (460213142 / 2284840496)
+ Update state (0x61) downloading, progress: 21.05 (481031554 / 2284840496)
+ Update state (0x61) downloading, progress: 21.93 (500954498 / 2284840496)
+ Update state (0x61) downloading, progress: 22.61 (516683138 / 2284840496)
+ Update state (0x61) downloading, progress: 23.49 (536606082 / 2284840496)
+ Update state (0x61) downloading, progress: 24.22 (553383298 / 2284840496)
+ Update state (0x61) downloading, progress: 24.95 (569994065 / 2284840496)
+ Update state (0x61) downloading, progress: 25.59 (584674129 / 2284840496)
+ Update state (0x61) downloading, progress: 26.23 (599354193 / 2284840496)
+ Update state (0x61) downloading, progress: 26.87 (614034257 / 2284840496)
+ Update state (0x61) downloading, progress: 27.69 (632777471 / 2284840496)
+ Update state (0x61) downloading, progress: 28.25 (645360383 / 2284840496)
+ Update state (0x61) downloading, progress: 28.84 (658991871 / 2284840496)
+ Update state (0x61) downloading, progress: 29.53 (674720511 / 2284840496)
+ Update state (0x61) downloading, progress: 30.25 (691174802 / 2284840496)
+ Update state (0x61) downloading, progress: 30.85 (704804764 / 2284840496)
+ Update state (0x61) downloading, progress: 31.38 (717080925 / 2284840496)
+ Update state (0x61) downloading, progress: 32.21 (735955293 / 2284840496)
+ Update state (0x61) downloading, progress: 32.99 (753781085 / 2284840496)
+ Update state (0x61) downloading, progress: 33.69 (769712548 / 2284840496)
+ Update state (0x61) downloading, progress: 34.28 (783344036 / 2284840496)
+ Update state (0x61) downloading, progress: 35.01 (799818713 / 2284840496)
+ Update state (0x61) downloading, progress: 35.74 (816595929 / 2284840496)
+ Update state (0x61) downloading, progress: 36.34 (830227417 / 2284840496)
+ Update state (0x61) downloading, progress: 37.07 (847004633 / 2284840496)
+ Update state (0x61) downloading, progress: 37.62 (859587545 / 2284840496)
+ Update state (0x61) downloading, progress: 38.31 (875316185 / 2284840496)
+ Update state (0x61) downloading, progress: 38.81 (886850521 / 2284840496)
+ Update state (0x61) downloading, progress: 39.59 (904676313 / 2284840496)
+ Update state (0x61) downloading, progress: 40.28 (920404953 / 2284840496)
+ Update state (0x61) downloading, progress: 40.79 (931939289 / 2284840496)
+ Update state (0x61) downloading, progress: 41.66 (951862233 / 2284840496)
+ Update state (0x61) downloading, progress: 42.53 (971785177 / 2284840496)
+ Update state (0x61) downloading, progress: 43.40 (991708121 / 2284840496)
+ Update state (0x61) downloading, progress: 44.05 (1006388185 / 2284840496)
+ Update state (0x61) downloading, progress: 44.63 (1019640357 / 2284840496)
+ Update state (0x61) downloading, progress: 45.33 (1035819305 / 2284840496)
+ Update state (0x61) downloading, progress: 46.02 (1051547945 / 2284840496)
+ Update state (0x61) downloading, progress: 46.85 (1070422313 / 2284840496)
+ Update state (0x61) downloading, progress: 47.58 (1087199529 / 2284840496)
+ Update state (0x61) downloading, progress: 48.23 (1101959945 / 2284840496)
+ Update state (0x61) downloading, progress: 49.01 (1119785737 / 2284840496)
+ Update state (0x61) downloading, progress: 49.74 (1136562953 / 2284840496)
+ Update state (0x61) downloading, progress: 50.39 (1151243017 / 2284840496)
+ Update state (0x61) downloading, progress: 51.04 (1166210804 / 2284840496)
+ Update state (0x61) downloading, progress: 51.91 (1186133748 / 2284840496)
+ Update state (0x61) downloading, progress: 52.74 (1205008422 / 2284840496)
+ Update state (0x61) downloading, progress: 53.29 (1217591334 / 2284840496)
+ Update state (0x61) downloading, progress: 53.83 (1229979354 / 2284840496)
+ Update state (0x61) downloading, progress: 54.70 (1249902298 / 2284840496)
+ Update state (0x61) downloading, progress: 55.21 (1261436634 / 2284840496)
+ Update state (0x61) downloading, progress: 56.02 (1279911103 / 2284840496)
+ Update state (0x61) downloading, progress: 56.89 (1299834047 / 2284840496)
+ Update state (0x61) downloading, progress: 57.70 (1318255881 / 2284840496)
+ Update state (0x61) downloading, progress: 58.49 (1336449693 / 2284840496)
+ Update state (0x61) downloading, progress: 59.10 (1350361981 / 2284840496)
+ Update state (0x61) downloading, progress: 59.97 (1370284949 / 2284840496)
+ Update state (0x61) downloading, progress: 60.57 (1383916437 / 2284840496)
+ Update state (0x61) downloading, progress: 61.17 (1397547925 / 2284840496)
+ Update state (0x61) downloading, progress: 61.90 (1414326644 / 2284840496)
+ Update state (0x61) downloading, progress: 62.56 (1429368060 / 2284840496)
+ Update state (0x61) downloading, progress: 63.45 (1449684232 / 2284840496)
+ Update state (0x61) downloading, progress: 64.50 (1473801480 / 2284840496)
+ Update state (0x61) downloading, progress: 65.24 (1490578696 / 2284840496)
+ Update state (0x61) downloading, progress: 66.06 (1509453110 / 2284840496)
+ Update state (0x61) downloading, progress: 66.90 (1528551983 / 2284840496)
+ Update state (0x61) downloading, progress: 67.73 (1547447337 / 2284840496)
+ Update state (0x61) downloading, progress: 68.70 (1569669409 / 2284840496)
+ Update state (0x61) downloading, progress: 69.56 (1589405262 / 2284840496)
+ Update state (0x61) downloading, progress: 70.33 (1606880597 / 2284840496)
+ Update state (0x61) downloading, progress: 71.58 (1635536472 / 2284840496)
+ Update state (0x61) downloading, progress: 72.41 (1654410840 / 2284840496)
+ Update state (0x61) downloading, progress: 73.33 (1675382360 / 2284840496)
+ Update state (0x61) downloading, progress: 74.26 (1696703376 / 2284840496)
+ Update state (0x61) downloading, progress: 75.29 (1720335461 / 2284840496)
+ Update state (0x61) downloading, progress: 75.95 (1735423987 / 2284840496)
+ Update state (0x61) downloading, progress: 76.93 (1757673117 / 2284840496)
+ Update state (0x61) downloading, progress: 77.67 (1774742835 / 2284840496)
+ Update state (0x61) downloading, progress: 78.91 (1803054450 / 2284840496)
+ Update state (0x61) downloading, progress: 80.06 (1829268850 / 2284840496)
+ Update state (0x61) downloading, progress: 81.02 (1851234424 / 2284840496)
+ Update state (0x61) downloading, progress: 81.66 (1865914488 / 2284840496)
+ Update state (0x61) downloading, progress: 82.77 (1891082632 / 2284840496)
+ Update state (0x61) downloading, progress: 83.87 (1916249475 / 2284840496)
+ Update state (0x61) downloading, progress: 84.45 (1929540298 / 2284840496)
+ Update state (0x61) downloading, progress: 85.59 (1955694384 / 2284840496)
+ Update state (0x61) downloading, progress: 86.88 (1985068212 / 2284840496)
+ Update state (0x61) downloading, progress: 87.26 (1993717341 / 2284840496)
+ Update state (0x61) downloading, progress: 88.22 (2015725689 / 2284840496)
+ Update state (0x61) downloading, progress: 89.13 (2036433026 / 2284840496)
+ Update state (0x61) downloading, progress: 89.82 (2052161661 / 2284840496)
+ Update state (0x61) downloading, progress: 90.82 (2075202866 / 2284840496)
+ Update state (0x61) downloading, progress: 91.72 (2095743027 / 2284840496)
+ Update state (0x61) downloading, progress: 92.49 (2113259428 / 2284840496)
+ Update state (0x61) downloading, progress: 93.46 (2135411000 / 2284840496)
+ Update state (0x61) downloading, progress: 94.03 (2148469987 / 2284840496)
+ Update state (0x61) downloading, progress: 95.06 (2171896678 / 2284840496)
+ Update state (0x61) downloading, progress: 95.47 (2181429373 / 2284840496)
+ Update state (0x61) downloading, progress: 97.20 (2220822977 / 2284840496)
+ Update state (0x61) downloading, progress: 97.43 (2226065857 / 2284840496)
+ Update state (0x61) downloading, progress: 97.45 (2226647724 / 2284840496)
+ Update state (0x61) downloading, progress: 98.71 (2255393520 / 2284840496)
+ Update state (0x61) downloading, progress: 100.00 (1109917984 / 1109917984)
+Success! App '232330' fully installed.
+    fetching install_config.sh...[0;32mOK[0m
+
+Creating Configs
+=================================
+downloading lgsm-default.cfg...creating css-server.cfg config file.
+cp: cannot stat ‘/home/lgsm/linuxgsm/CounterStrikeSource/serverfiles/cstrike/cfg/lgsm-default.cfg’: No such file or directory
+creating server.cfg.
+creating redirect.
+server.cfg > css-server.cfg.
+changing hostname.
+sed: can't read /home/lgsm/linuxgsm/CounterStrikeSource/serverfiles/cstrike/cfg/css-server.cfg: No such file or directory
+changing rconpassword.
+sed: can't read /home/lgsm/linuxgsm/CounterStrikeSource/serverfiles/cstrike/cfg/css-server.cfg: No such file or directory
+
+    fetching fix.sh...[0;32mOK[0m
+    fetching install_complete.sh...[0;32mOK[0m
+=================================
+Install Complete!
+
+To start server type:
+./cssserver start
+
+    fetching command_start.sh...[0;32mOK[0m
+    fetching check_system_dir.sh...[0;32mOK[0m
+    fetching check_logs.sh...[0;32mOK[0m
+    fetching check_ip.sh...[0;32mOK[0m
+    fetching check_tmux.sh...[0;32mOK[0m
+    fetching check_config.sh...[0;32mOK[0m
+[K[[1;33m WARN [0m] Starting css-server: Config file missing!
+/home/lgsm/linuxgsm/CounterStrikeSource/serverfiles/cstrike/cfg/css-server.cfg
+    fetching check_status.sh...[0;32mOK[0m
+    fetching fix_steamcmd.sh...[0;32mOK[0m
+[K[ .... ] Starting css-server: Applying steamclient.so general fix: Counter Strike: Source[K[[0;36m INFO [0m] Starting css-server: Applying steamclient.so general fix: Counter Strike: Source[K[[0;32m  OK  [0m] Starting css-server: Applying steamclient.so general fix: Counter Strike: Source
+    fetching fix_glibc.sh...[0;32mOK[0m
+    fetching info_config.sh...[0;32mOK[0m
+    fetching logs.sh...[0;32mOK[0m
+[K[ .... ] Starting css-server: [0;31mUNAVAILABLE[0m[K[[0;32m  OK  [0m] Starting css-server: [0;31mUNAVAILABLE[0m

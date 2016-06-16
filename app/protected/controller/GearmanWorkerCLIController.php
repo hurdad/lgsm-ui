@@ -5,7 +5,7 @@ class GearmanWorkerCLIController extends DooCliController {
 
 	function test(){
 
-		set_include_path(dirname(Doo::conf()->SITE_PATH)  . '/include/net_gearman');
+		set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
 
 
 		require_once 'Net/Gearman/Client.php';
@@ -16,6 +16,24 @@ class GearmanWorkerCLIController extends DooCliController {
 		    'action' => 'new-comment'
 		)));
 
+				var_dump($client->start(array(
+		    'userid' => 5555,
+		    'action' => 'new-comment'
+		)));
+
+		var_dump($client->stop(array(
+		    'userid' => 5555,
+		    'action' => 'new-comment'
+		)));
+
+
+
+
+
+		var_dump($client->update(array(
+		    'userid' => 5555,
+		    'action' => 'new-comment'
+		)));
 
 	}
 
@@ -32,7 +50,9 @@ class GearmanWorkerCLIController extends DooCliController {
 		$function = $this->arguments[1];
 		
 		//include net_gearman
-		set_include_path(dirname(Doo::conf()->SITE_PATH)  . '/include/net_gearman');
+		define('NET_GEARMAN_JOB_PATH', Doo::conf()->SITE_PATH . '/protected/class/gearman/');
+
+		set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
 		require_once 'Net/Gearman/Worker.php';
 
 		//create server array

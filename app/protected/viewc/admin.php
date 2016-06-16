@@ -61,10 +61,11 @@
       <ul class="nav nav-tabs" id="myTab">
         <li class="active"><a data-target="#games" data-toggle="tab">Games</a></li>
         <li><a data-target="#services" data-toggle="tab">Services</a></li>
-        <li><a data-target="#virtualbox" data-toggle="tab">VirtualBox</a></li>
-        <li><a data-target="#github" data-toggle="tab">GitHub</a></li>
+        <li><a data-target="#virtualbox" data-toggle="tab">VirtualBox Server</a></li>
+        <li><a data-target="#github" data-toggle="tab">GitHub Repos</a></li>
         <li><a data-target="#base-images" data-toggle="tab">Base Images</a></li>
-        <li><a data-target="#gearman" data-toggle="tab">Gearman Servers</a></li>
+        <li><a data-target="#gearman-servers" data-toggle="tab">Gearman Servers</a></li>
+        <li><a data-target="#gearman-workers" data-toggle="tab">Gearman Workers</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="games">
@@ -143,8 +144,8 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>url</th>
-                <th>username</th>
+                <th>URL</th>
+                <th>Username</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -168,9 +169,9 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>url</th>
-                <th>branch</th>
-                <th>username</th>
+                <th>URL</th>
+                <th>Branch</th>
+                <th>Username</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -217,7 +218,7 @@
             </tbody>
           </table>
         </div>
-        <div class="tab-pane" id="gearman">
+        <div class="tab-pane" id="gearman-servers">
           <div class="btn-group pull-right">
             <button class="btn btn-success" action="add-gearman">Add Gearman Server</a>
           </div>
@@ -232,13 +233,35 @@
               </tr>
             </thead>
             <tbody>
-<?php foreach($this->data['gearman_job_servers'] as $i): ?>                
+<?php foreach($this->data['gearman_job_servers'] as $s): ?>                
                   <tr>
-                    <td><?php echo $i['hostname'];?></td>
-                    <td><?php echo $i['port'];?></td>
-                    <td><?php echo $i['enabled'];?></td>
-                    <td width="90"><button class="btn btn-sm btn-info" action="edit-gearman" gearman-id="<?php echo $i['id'];?>" type="button">Edit</a></td>
-                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-gearman" gearman-id="<?php echo $i['id'];?>" type="button">Delete</a></td>
+                    <td><?php echo $s['hostname'];?></td>
+                    <td><?php echo $s['port'];?></td>
+                    <td ><?php echo ($s['enabled'] == 1) ? "true" : "false"; ;?></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-gearman" gearman-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-danger" action="delete-gearman" gearman-id="<?php echo $s['id'];?>" type="button">Delete</a></td>
+                  </tr>
+<?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane" id="gearman-workers">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Function</th>
+                <th>Count</th>
+                <th>Enabled</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+<?php foreach($this->data['gearman_functions'] as $s): ?>                
+                  <tr>
+                    <td><?php echo $s['function_name'];?></td>
+                    <td><?php echo $s['worker_count'];?></td>
+                    <td ><?php echo ($s['enabled'] == 1) ? "true" : "false"; ;?></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-gearman-worker" gearman-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
                   </tr>
 <?php endforeach; ?>
             </tbody>
@@ -817,7 +840,7 @@
                 <div class="col-sm-offset-3 col-sm-8">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="edit-gearman-enaabled-checkbox">Enabled</label>
+                      <input type="checkbox" id="edit-gearman-enabled-checkbox">Enabled</label>
                   </div>
                 </div>
               </div>
@@ -858,7 +881,7 @@
                 <div class="col-sm-offset-3 col-sm-8">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="add-gearman-enaabled-checkbox">Enabled</label>
+                      <input type="checkbox" id="add-gearman-enabled-checkbox" checked>Enabled</label>
                   </div>
                 </div>
               </div>

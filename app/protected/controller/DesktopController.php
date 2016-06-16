@@ -43,7 +43,7 @@ class DesktopController extends DooController {
 
 		//base vbox images
 		$sql_images = "SELECT 
-		    id, name, glibc_version, architecture, username, ssh_password, ssh_key
+		    id, name, glibc_version, architecture, ssh_username, ssh_password, ssh_key
 		FROM
 		    base_images";
 		$base_images = Doo::db()->fetchAll($sql_images);
@@ -62,8 +62,21 @@ class DesktopController extends DooController {
 		    gearman_job_servers";
 		$query_gearman_job_servers = Doo::db()->fetchAll($sql_gearman_job_servers);
 
+		//query gearman functions 
+		$sql_gearman_functions = "SELECT 
+		    id, function_name, worker_count, enabled
+		FROM
+		    gearman_functions;";
+		$query_gearman_functions = Doo::db()->fetchAll($sql_gearman_functions);
+
+		set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
+		require_once 'Net/Gearman/Manager.php';
+		$manager = new Net_Gearman_Manager("localhost:4730");
+		//var_dump($manager->status());
+		//return;
+
 		//render view
-        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images, 'query_engines' => $query_engines, 'gearman_job_servers' => $query_gearman_job_servers));
+        $this->renderc('admin', array('games' => $games, 'services' => $services, 'vbox_soap_endpoints' => $vbox_soap_endpoints, 'gits' => $gits, 'base_images' => $base_images, 'query_engines' => $query_engines, 'gearman_job_servers' => $query_gearman_job_servers, 'gearman_functions' => $query_gearman_functions));
 	}
 	
 	function deploy(){
@@ -155,7 +168,7 @@ class DesktopController extends DooController {
 
 		//base vbox images
 		$sql_images = "SELECT 
-		    id, name, glibc_version, architecture, username, ssh_password, ssh_key
+		    id, name, glibc_version, architecture, ssh_username, ssh_password, ssh_key
 		FROM
 		    base_images";
 		$base_images = Doo::db()->fetchAll($sql_images);
@@ -190,15 +203,23 @@ class DesktopController extends DooController {
 
 			$arr = array();
 			if($service['query_engine_name'] == "SOURCE"){
-				$sq = new SourceQuery( );
-				$sq->Connect($service['ip'], $service['port'], 1, SourceQuery :: SOURCE);
-				$arr['query'] = $sq->GetInfo();
-				$sq->Disconnect();
-			} else 	if($service['query_engine_name'] == "GOLDSOURCE"){
-				$sq = new SourceQuery( );
-				$sq->Connect($service['ip'], $service['port'], 1, SourceQuery :: GOLDSOURCE);
-				$arr['query'] = $sq->GetInfo();
-				$sq->Disconnect();
+				try {
+					$sq = new SourceQuery( );
+					$sq->Connect($service['ip'], $service['port'], 1, SourceQuery :: SOURCE);
+					$arr['query'] = $sq->GetInfo();
+					$sq->Disconnect();
+				} catch (Exception $e) {
+    				//echo 'Caught exception: ',  $e->getMessage(), "\n";
+    			}
+			} else if($service['query_engine_name'] == "GOLDSOURCE"){
+				try {
+					$sq = new SourceQuery( );
+					$sq->Connect($service['ip'], $service['port'], 1, SourceQuery :: GOLDSOURCE);
+					$arr['query'] = $sq->GetInfo();
+					$sq->Disconnect();
+				} catch (Exception $e) {
+    				//echo 'Caught exception: ',  $e->getMessage(), "\n";
+    			}
 			}
 
 			$arr['data'] = $service;

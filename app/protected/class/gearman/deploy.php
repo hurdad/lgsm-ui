@@ -1,23 +1,235 @@
-
 <?php
 
-class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common
-{
-    public function run($args)
-    {
-         var_dump($args);        
-        if (!isset($args['userid']) || !isset($args['action'])) {
-            // Throw a Net_Gearman_Job_Exception to report back to the server that the job failed.
-            throw new Net_Gearman_Job_Exception('Invalid/Missing arguments');
+class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
+
+    public function run($arg) {
+
+    	//check args
+    	if (!isset($arg['vbox_id']) || !isset($arg['base_image_id'])) {
+            throw new Net_Gearman_Job_Exception("Missing Job Parameters!");
         }
 
+        //get vm
+        $vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($arg['vbox_id'])));
+        if(!isset($vm)){
+        	throw new Net_Gearman_Job_Exception("Invalid Virtualbox!");
+        }
 
-       
+        //get vbox
+		$vbox = Doo::db()->getOne('VboxSoapEndpoints', array('where' => 'id = ?', 'param' => array($vm->vbox_soap_endpoints_id)));
+	 	if(!isset($vbox)){
+        	throw new Net_Gearman_Job_Exception("Invalid Virtualbox Soap Endpoint!");
+        }
 
-        // Insert a record or something based on the $args
+        //get github repo
+		$github = Doo::db()->getOne('Github', array('where' => 'id = ?', 'param' => array($vm->github_id)));
+	 	if(!isset($github)){
+        	throw new Net_Gearman_Job_Exception("Invalid Github Repo!");
+        }
 
-        return array(); // Results are returned to Gearman, except for
-                        // background jobs like this one.
+        //get game 
+		$game = Doo::db()->getOne('Games', array('where' => 'id = ?', 'param' => array($vm->games_id)));
+	 	if(!isset($game)){
+        	throw new Net_Gearman_Job_Exception("Invalid Game!");;
+        }
+
+        //get base image
+        $image = Doo::db()->getOne('BaseImages', array('where' => 'id = ?', 'param' => array($arg['base_image_id'])));
+	 	if(!isset($image)){
+        	throw new Net_Gearman_Job_Exception("Invalid Base Image!");
+        }
+
+        //get assigned services
+        $sql_services = "SELECT 
+		    script_name, is_default
+		FROM
+		    assigned_services
+		        JOIN
+		    services ON assigned_services.services_id = services.id
+		WHERE
+		    virtualboxes_id = " . $arg['vbox_id'];
+		$services = Doo::db()->fetchAll($sql_services);
+		if(count($services) == 0){
+			throw new Net_Gearman_Job_Exception("Service Error: Must have at least one assigned service!");
+		}
+
+		//update state
+		$vm->deploy_status = "Connecting to Virtualbox...";
+		$vm->update();
+
+        //include phpvirtualbox soap wrapper
+    	require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/config.php');
+		require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/utils.php');
+		require_once(dirname(Doo::conf()->SITE_PATH).'/include/phpvirtualbox/endpoints/lib/vboxconnector.php');
+		global $_SESSION;
+
+		//vbox soap config
+		$conf = new phpVBoxConfigClass;
+		$conf->location = $vbox->url;
+		$conf->username = $vbox->username;
+		$conf->password = $vbox->password;
+		$vbox = new vboxconnector(false, $conf);		
+
+		//get image vm
+		$machine = $vbox->remote_vboxGetMachines(array('vm' => $image->name));
+		if(!isset($machine[0])){
+			throw new Net_Gearman_Job_Exception("Base Image ({$$image->name}) does not exist on Virtualbox!");
+		}
+
+		//generate new vm hostname
+		$hostname = $image->name . " - " . $vm->id;
+
+		//save hostname
+		$vm->hostname = $hostname;
+		$vm->deploy_status = "Cloning...";
+		$vm->update();
+
+		//clone
+		$clone = $vbox->remote_machineClone(array('name' => $hostname, "vmState" => "MachineState", "src" => $machine[0]['id'], "reinitNetwork" => true ));
+
+		//wait for clone progress to complete
+		$progress = 0;
+		while($progress < 100) {
+
+			$prog = $vbox->remote_progressGet(array("progress" => $clone["progress"]));
+			$progress = $prog['info']['percent'];
+
+			//update status
+			$vm->deploy_status = "Cloning... {$progress}/100" ;
+			$vm->update();
+
+			//sleep for one second to avoid spinning
+			sleep(1);
+
+		}
+		unset($vbox); //disconnect
+
+		//update status
+		$vm->deploy_status = "Cloning Complete!" ;
+		$vm->update();
+
+		//add cloned vm
+		$vbox = new vboxconnector(false, $conf); //reconnect
+		$vbox->remote_machineAdd(array("file" => "/mnt/raid/vm/{$hostname}/{$hostname}.vbox"));
+
+		//get new machine
+		$machine = $vbox->remote_vboxGetMachines(array("vm" => $hostname));
+		if(!isset($machine[0])){
+			throw new Net_Gearman_Job_Exception("Cannot find Base Image on Virtualbox!");
+		}
+		$machine_id = $machine[0]['id'];
+
+		//update status
+		$vm->deploy_status = "Starting VM!" ;
+		$vm->update();
+
+		//power on new vm
+		$vbox->machineSetState(array("vm" => $machine_id, "state" => "powerUp"));
+		unset($vbox); //disconnect
+
+		//init vars
+		$found = false;
+		$ip = "";
+		//wait for vm to get ipv4 address from DHCP
+		while (!$found){
+			$vbox = new vboxconnector(false, $conf); //reconnect
+
+			//get network properties
+			$network = $vbox->remote_machineEnumerateGuestProperties(array("vm" => $machine_id, "pattern" =>"/VirtualBox/GuestInfo/Net/0/V4/IP"));
+
+			//ipv4 addy
+			$ip = $network[1][0];
+
+			//check for ip
+			if (preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i", $ip)) {
+				$found = true;
+			}
+
+			unset($vbox); //disconnect
+
+			//update status
+			$vm->deploy_status = "Waiting for IPv4 Address" ;
+			$vm->update();
+
+			sleep(2); //sleep for 2 seconds to avoid spinning
+		}
+
+		//update status
+		$vm->deploy_status = "IP Address recieved!" ;
+		$vm->ip = $ip;
+		$vm->update();
+
+		//include ssh lib
+		set_include_path(get_include_path() . PATH_SEPARATOR . dirname(Doo::conf()->SITE_PATH)  . '/include/phpseclib');
+		include('Net/SSH2.php');
+
+		//ssh to vm
+		$ssh = new Net_SSH2($ip, 22);
+
+		//use ssh password
+		if(isset($vm->ssh_password)) {
+			if(!$ssh->login($vm->ssh_username, $vm->ssh_password)){
+				$vm->deploy_status = "SSH login with pw failed : " . $vm->ip . "@" . $vm->ssh_username;
+				$vm->update();
+				throw new Net_Gearman_Job_Exception("SSH login with pw failed : " . $vm->ip . "@" . $vm->ssh_username);
+			}
+		} else if(isset($vm->ssh_key)){ //use ssh key
+			$key = new Crypt_RSA();
+			$key->loadKey($vm->ssh_key);
+			if (!$ssh->login($vm->ssh_username, $key)) {
+			    $vm->deploy_status =  "SSH login with key failed : " . $vm->ip . "@" . $vm->ssh_username;
+			    $vm->update();
+				throw new Net_Gearman_Job_Exception("SSH login with key failed : " . $vm->ip . "@" . $vm->ssh_username);
+			}
+		}
+		$ssh->setTimeout(0);
+
+		//update status
+		$vm->deploy_status = "Cloning Github Repo..";
+		$vm->update();
+
+		//clone github repo into home directory
+		if(!isset($github->ssh_key)) { //https clone
+			$ssh->exec("git clone -b {$github->branch} {$github->url}");
+		}else { //ssh clone
+			$ssh->exec("ssh -o StrictHostKeyChecking=no git@github.com"); //disable strict host key checking
+			$ssh->exec("git clone -b {$github->branch} {$github->url}");
+		}
+
+		//update status
+		$vm->deploy_status = "Installing Dependancies..";
+		$vm->update();
+		echo $ssh->exec("sudo yum -y install tmux glibc.i686 libstdc++.i686");
+
+		//update status
+		$vm->deploy_status = "Installing Game..";
+		$vm->update();
+
+		//parse github folder
+		$github_folder = substr($github->url, strrpos($github->url, '/') + 1, strrpos($github->url, '.')-strrpos($github->url, '/') - 1);
+		$game_folder_name = $game->folder_name;
+
+		//make sure scripts are executable
+		foreach($services as $s){
+			$script_name = $s['script_name'];
+			echo $ssh->exec("cd {$github_folder}/{$game_folder_name}/ && chmod +x {$script_name}");
+		}
+
+		//pick first service to run auto-install
+		$install_script = $services[0]['script_name'];
+		echo $ssh->exec("cd {$github_folder}/{$game_folder_name}/ && ./{$install_script} auto-install");
+
+		//update status
+		$vm->deploy_status = "Starting Services..";
+		$vm->update();
+
+		//start services
+		foreach($services as $s){
+			$game_folder_name = $game->folder_name;
+			echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$install_script} start");
+		}
+
+        return true;
     }
 }
 

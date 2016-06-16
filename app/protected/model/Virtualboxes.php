@@ -51,7 +51,7 @@ class Virtualboxes extends DooModel{
     /**
      * @var varchar Max length is 45.
      */
-    public $username;
+    public $ssh_username;
 
     /**
      * @var longtext
@@ -65,7 +65,7 @@ class Virtualboxes extends DooModel{
 
     public $_table = 'virtualboxes';
     public $_primarykey = 'id';
-    public $_fields = array('id','vbox_soap_endpoints_id','games_id','github_id','deploy_status','hostname','ip','cpu','memory_mb','username','ssh_key','ssh_password');
+    public $_fields = array('id','vbox_soap_endpoints_id','games_id','github_id','deploy_status','hostname','ip','cpu','memory_mb','ssh_username','ssh_key','ssh_password');
 
     public function getVRules() {
         return array(
@@ -100,7 +100,7 @@ class Virtualboxes extends DooModel{
 
                 'hostname' => array(
                         array( 'maxlength', 45 ),
-                        array( 'notnull' ),
+                        array( 'optional' ),
                 ),
 
                 'ip' => array(
@@ -119,7 +119,7 @@ class Virtualboxes extends DooModel{
                         array( 'notnull' ),
                 ),
 
-                'username' => array(
+                'ssh_username' => array(
                         array( 'maxlength', 45 ),
                         array( 'optional' ),
                 ),

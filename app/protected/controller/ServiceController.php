@@ -5,7 +5,7 @@ class ServiceController extends DooController {
     public function beforeRun($resource, $action)
     {
     	//include phpseclib
-		set_include_path(dirname(Doo::conf()->SITE_PATH)  . '/include/phpseclib');
+		set_include_path(get_include_path() . PATH_SEPARATOR . dirname(Doo::conf()->SITE_PATH)  . '/include/phpseclib');
 		include('Net/SSH2.php');
 
         //Init

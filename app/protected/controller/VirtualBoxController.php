@@ -46,13 +46,21 @@ class VirtualBoxController extends DooController {
         	return;
         }
 
-        $vm->deploy_status = "Initalizing..";
+        //get gearman job server
+        $gearman_servers = array();
+        foreach(Doo::db()->find('GearmanJobServers') as $s){
+        	$gearman_servers[] = $s->hostname . ":" . $s->port;
+        }
 
         //database transaction
         Doo::db()->beginTransaction();
 		try {
 
-		  	//insert vm
+		  	//init + insert vm
+		  	$vm->deploy_status = "Initalizing..";
+		  	$vm->ssh_username = $image->ssh_username;
+		  	$vm->ssh_password = $image->ssh_password;
+		  	$vm->ssh_key = $image->ssh_key;
             $new_id = $vm->insert();
 
             //insert services
@@ -63,10 +71,19 @@ class VirtualBoxController extends DooController {
  				$as->insert();
             }
                   
-            //commit
+            //commit db
             Doo::db()->commit();
             $this->res->success = true;
             $this->res->data = $new_id;
+
+            //send deploy request for vbox id
+            set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
+			require_once 'Net/Gearman/Client.php';
+			$client = new Net_Gearman_Client($gearman_servers);
+			$client->deploy(array(
+			    'vbox_id' => $new_id,
+			    'base_image_id' => $image->id
+			));
 		}
 		catch (Exception $e) {
             Doo::db()->rollBack();
