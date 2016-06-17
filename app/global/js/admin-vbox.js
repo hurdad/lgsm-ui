@@ -23,6 +23,7 @@ $(function() {
                         $("#edit-vbox-url-text").val(response.data.url);
                         $("#edit-vbox-username-text").val(response.data.username);
                         $("#edit-vbox-password-password").val(response.data.password);
+                        $("#edit-vbox-machinefolder-text").val(response.data.machine_folder);
                         id = response.data.id;
                         $('#edit-vbox-modal').modal('show');
                     } else {
@@ -43,6 +44,7 @@ $(function() {
             vbox.url = $("#edit-vbox-url-text").val();
             vbox.username = $("#edit-vbox-username-text").val();
             vbox.password = $("#edit-vbox-password-password").val();
+            vbox.machine_folder = $("#edit-vbox-machinefolder-text").val();
         
             $.ajax({
                 type: "PUT",
@@ -115,6 +117,7 @@ $(function() {
             vbox.url = $("#add-vbox-url-text").val();
             vbox.username = $("#add-vbox-username-text").val();
             vbox.password = $("#add-vbox-password-password").val();
+            vbox.machine_folder = $("#add-vbox-machinefolder-text").val();
          
             $.ajax({
                 type: "POST",

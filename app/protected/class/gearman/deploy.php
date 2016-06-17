@@ -4,6 +4,8 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 
     public function run($arg) {
 
+    	var_dump($arg);
+
     	//check args
     	if (!isset($arg['vbox_id']) || !isset($arg['base_image_id'])) {
             throw new Net_Gearman_Job_Exception("Missing Job Parameters!");
@@ -16,8 +18,8 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
         }
 
         //get vbox
-		$vbox = Doo::db()->getOne('VboxSoapEndpoints', array('where' => 'id = ?', 'param' => array($vm->vbox_soap_endpoints_id)));
-	 	if(!isset($vbox)){
+		$vbox_soap = Doo::db()->getOne('VboxSoapEndpoints', array('where' => 'id = ?', 'param' => array($vm->vbox_soap_endpoints_id)));
+	 	if(!isset($vbox_soap)){
         	throw new Net_Gearman_Job_Exception("Invalid Virtualbox Soap Endpoint!");
         }
 
@@ -65,9 +67,9 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 
 		//vbox soap config
 		$conf = new phpVBoxConfigClass;
-		$conf->location = $vbox->url;
-		$conf->username = $vbox->username;
-		$conf->password = $vbox->password;
+		$conf->location = $vbox_soap->url;
+		$conf->username = $vbox_soap->username;
+		$conf->password = $vbox_soap->password;
 		$vbox = new vboxconnector(false, $conf);		
 
 		//get image vm
@@ -110,7 +112,10 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 
 		//add cloned vm
 		$vbox = new vboxconnector(false, $conf); //reconnect
-		$vbox->remote_machineAdd(array("file" => "/mnt/raid/vm/{$hostname}/{$hostname}.vbox"));
+		$machine_folder = $vbox_soap->machine_folder;
+		if(!$vbox->remote_machineAdd(array("file" => "{$machine_folder}/{$hostname}/{$hostname}.vbox"))){
+			throw new Net_Gearman_Job_Exception("Unable to add Cloned VM!");
+		}
 
 		//get new machine
 		$machine = $vbox->remote_vboxGetMachines(array("vm" => $hostname));
@@ -119,12 +124,17 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 		$machine_id = $machine[0]['id'];
 
+		//resize CPU + MEM
+		//TODO
+
 		//update status
 		$vm->deploy_status = "Starting VM!" ;
 		$vm->update();
 
 		//power on new vm
-		$vbox->machineSetState(array("vm" => $machine_id, "state" => "powerUp"));
+		if(!$vbox->machineSetState(array("vm" => $machine_id, "state" => "powerUp"))){
+			throw new Net_Gearman_Job_Exception("Unable to Power Up new VM!");
+		}
 		unset($vbox); //disconnect
 
 		//init vars
@@ -155,13 +165,13 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 
 		//update status
-		$vm->deploy_status = "IP Address recieved!" ;
+		$vm->deploy_status = "IP Address received!" ;
 		$vm->ip = $ip;
 		$vm->update();
 
 		//include ssh lib
 		set_include_path(get_include_path() . PATH_SEPARATOR . dirname(Doo::conf()->SITE_PATH)  . '/include/phpseclib');
-		include('Net/SSH2.php');
+		include_once('Net/SSH2.php');
 
 		//ssh to vm
 		$ssh = new Net_SSH2($ip, 22);

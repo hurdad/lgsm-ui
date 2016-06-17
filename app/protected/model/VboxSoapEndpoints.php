@@ -23,9 +23,14 @@ class VboxSoapEndpoints extends DooModel{
      */
     public $password;
 
+    /**
+     * @var varchar Max length is 100.
+     */
+    public $machine_folder;
+
     public $_table = 'vbox_soap_endpoints';
     public $_primarykey = 'id';
-    public $_fields = array('id','url','username','password');
+    public $_fields = array('id','url','username','password','machine_folder');
 
     public function getVRules() {
         return array(
@@ -47,6 +52,11 @@ class VboxSoapEndpoints extends DooModel{
 
                 'password' => array(
                         array( 'maxlength', 45 ),
+                        array( 'notnull' ),
+                ),
+
+                'machine_folder' => array(
+                        array( 'maxlength', 100 ),
                         array( 'notnull' ),
                 )
             );

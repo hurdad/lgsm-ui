@@ -146,6 +146,7 @@
               <tr>
                 <th>URL</th>
                 <th>Username</th>
+                <th>Machine Folder</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -155,6 +156,7 @@
                   <tr>
                     <td><?php echo $e['url'];?></td>
                     <td><?php echo $e['username'];?></td>
+                    <td><?php echo $e['machine_folder'];?></td>
                     <td width="90"><button class="btn btn-sm btn-info" action="edit-vbox" vbox-id="<?php echo $e['id'];?>" type="button">Edit</a></td>
                     <td width="90"><button class="btn btn-sm btn-danger" action="delete-vbox" vbox-id="<?php echo $e['id'];?>" type="button">Delete</a></td>
                   </tr>
@@ -534,6 +536,12 @@
                   <input type="password" class="form-control" id="edit-vbox-password-password">
                 </div>
               </div>
+              <div class="form-group">
+                <label for="edit-vbox-machinefolder-text" class="col-sm-3 control-label">Machine Folder</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-vbox-machinefolder-text">
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -558,19 +566,25 @@
               <div class="form-group">
                 <label for="add-vbox-url-text" class="col-sm-3 control-label">URL</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="add-vbox-url-text">
+                  <input type="text" class="form-control" id="add-vbox-url-text" placeholder="http://localhost:18083/">
                 </div>
               </div>
               <div class="form-group">
                 <label for="add-vbox-username-text" class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="add-vbox-username-text">
+                  <input type="text" class="form-control" id="add-vbox-username-text" placeholder="vbox">
                 </div>
               </div>
               <div class="form-group">
                 <label for="add-vbox-password-password" class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-8">
                   <input type="password" class="form-control" id="add-vbox-password-password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-vbox-machinefolder-text" class="col-sm-3 control-label">Machine Folder</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-vbox-machinefolder-text" placeholder="~/VirtualBox VMs">
                 </div>
               </div>
             </form>

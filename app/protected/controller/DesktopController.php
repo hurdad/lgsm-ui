@@ -29,7 +29,7 @@ class DesktopController extends DooController {
 
 		//vbox soap endpoints
 		$sql_vbox = "SELECT 
-		    id, url, username, password
+		    id, url, username, password, machine_folder
 		FROM
 		    vbox_soap_endpoints";
 		$vbox_soap_endpoints = Doo::db()->fetchAll($sql_vbox);
