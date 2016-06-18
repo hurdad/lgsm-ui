@@ -4,8 +4,6 @@
   'Process.php' => '/var/www/html/lgsm-ui/app/protected/class/Process.php',
   'update.php' => '/var/www/html/lgsm-ui/app/protected/class/gearman/update.php',
   'deploy.php' => '/var/www/html/lgsm-ui/app/protected/class/gearman/deploy.php',
-  'start.php' => '/var/www/html/lgsm-ui/app/protected/class/gearman/start.php',
-  'stop.php' => '/var/www/html/lgsm-ui/app/protected/class/gearman/stop.php',
   'DBRESTController.php' => '/var/www/html/lgsm-ui/app/protected/class/DBRESTController.php',
   'QueryEngines.php' => '/var/www/html/lgsm-ui/app/protected/model/QueryEngines.php',
   'Games.php' => '/var/www/html/lgsm-ui/app/protected/model/Games.php',

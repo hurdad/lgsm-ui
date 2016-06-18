@@ -105,7 +105,7 @@ class DesktopController extends DooController {
 
 			//get virtualboxes for each game
 			$sql_vboxes = "SELECT 
-			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip, deploy_status
+			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip, ssh_username, deploy_status
 			FROM
 			    virtualboxes
 			        JOIN

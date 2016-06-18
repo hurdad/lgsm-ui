@@ -4,8 +4,6 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 
     public function run($arg) {
 
-    	var_dump($arg);
-
     	//check args
     	if (!isset($arg['vbox_id']) || !isset($arg['base_image_id'])) {
             throw new Net_Gearman_Job_Exception("Missing Job Parameters!");
@@ -124,9 +122,18 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 		$machine_id = $machine[0]['id'];
 
-		//resize CPU + MEM
-		//TODO
+/*
+		//update status
+		$vm->deploy_status = "Resizing VM!" ;
+		$vm->update();
 
+		//resize CPU + MEM
+		$details = $vbox->remote_hostGetDetails(array("vm" => $machine_id));
+		$details['CPUCount'] = $vm->cpu;
+		$details['memorySize'] = $vm->memory_mb;
+		$vbox->remote_machineSave($details);
+*/
+		
 		//update status
 		$vm->deploy_status = "Starting VM!" ;
 		$vm->update();
@@ -174,7 +181,7 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		include_once('Net/SSH2.php');
 
 		//ssh to vm
-		$ssh = new Net_SSH2($ip, 22);
+		$ssh = new Net_SSH2($ip, $vm->ssh_port);
 
 		//use ssh password
 		if(isset($vm->ssh_password)) {
@@ -238,6 +245,10 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 			$game_folder_name = $game->folder_name;
 			echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$install_script} start");
 		}
+
+		//update status
+		$vm->deploy_status = "Deployment Comoplete!";
+		$vm->update();
 
         return true;
     }

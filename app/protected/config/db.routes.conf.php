@@ -27,7 +27,6 @@ $route['put']['/db/games/:id'] = array('db/DBGamesController', 'update', 'match'
 // DELETE
 $route['delete']['/db/games/:id'] = array('db/DBGamesController', 'destroy', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 
-
 // GET 
 $route['get']['/db/gearman_job_servers/:id'] = array('db/DBGearmanJobServersController', 'view', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 // POST
@@ -36,8 +35,6 @@ $route['post']['/db/gearman_job_servers'] = array('db/DBGearmanJobServersControl
 $route['put']['/db/gearman_job_servers/:id'] = array('db/DBGearmanJobServersController', 'update', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 // DELETE
 $route['delete']['/db/gearman_job_servers/:id'] = array('db/DBGearmanJobServersController', 'destroy', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
-
-
 
 // GET 
 $route['get']['/db/github/:id'] = array('db/DBGithubController', 'view', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
@@ -65,5 +62,10 @@ $route['post']['/db/vbox_soap_endpoints'] = array('db/DBVboxSoapEndpointsControl
 $route['put']['/db/vbox_soap_endpoints/:id'] = array('db/DBVboxSoapEndpointsController', 'update', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 // DELETE
 $route['delete']['/db/vbox_soap_endpoints/:id'] = array('db/DBVboxSoapEndpointsController', 'destroy', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
+
+// GET 
+$route['get']['/db/workers/:id'] = array('db/DBWorkersController', 'view', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
+// PUT
+$route['put']['/db/workers/:id'] = array('db/DBWorkersController', 'update', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 
 ?>

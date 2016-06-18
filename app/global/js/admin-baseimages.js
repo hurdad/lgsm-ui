@@ -24,9 +24,10 @@ $(function() {
                         $("#edit-baseimage-name-text").val(response.data.name);
                         $("#edit-baseimage-glibc-text").val(response.data.glibc_version);
                         $("#edit-baseimage-arc-select").val(response.data.architecture);
-                        $("#edit-baseimage-username-text").val(response.data.username);
+                        $("#edit-baseimage-username-text").val(response.data.ssh_username);
                         $("#edit-baseimage-password-text").val(response.data.ssh_password);
                         $("#edit-baseimage-sshkey-textarea").val(response.data.ssh_key);
+                        $("#edit-baseimage-sshport-text").val(response.data.ssh_port);
 
                         id = response.data.id;
                         $('#edit-baseimage-modal').modal('show');
@@ -49,10 +50,11 @@ $(function() {
             baseimage.name =  $("#edit-baseimage-name-text").val();
             baseimage.glibc_version = $("#edit-baseimage-glibc-text").val()
             baseimage.architecture = $("#edit-baseimage-arch-select").val();
-            baseimage.username = $("#edit-baseimage-username-text").val();
+            baseimage.ssh_username = $("#edit-baseimage-username-text").val();
             baseimage.ssh_password = $("#edit-baseimage-password-text").val();
-            baseimage.ssh_key =$("#edit-baseimage-sshkey-textarea").val();
-         
+            baseimage.ssh_key = $("#edit-baseimage-sshkey-textarea").val();
+            baseimage.ssh_port = $("#edit-baseimage-sshport-text").val();
+
             $.ajax({
                 type: "PUT",
                 url: 'db/base_images/' + id,
@@ -126,9 +128,10 @@ $(function() {
             baseimage.name =  $("#add-baseimage-name-text").val();
             baseimage.glibc_version = $("#add-baseimage-glibc-text").val()
             baseimage.architecture = $("#add-baseimage-arch-select").val();
-            baseimage.username = $("#add-baseimage-username-text").val();
+            baseimage.ssh_username = $("#add-baseimage-username-text").val();
             baseimage.ssh_password = $("#add-baseimage-password-text").val();
-            baseimage.ssh_key =$("#add-baseimage-sshkey-textarea").val();
+            baseimage.ssh_key = $("#add-baseimage-sshkey-textarea").val();
+            baseimage.ssh_port = $("#edit-baseimage-sshport-text").val();
          
             $.ajax({
                 type: "POST",

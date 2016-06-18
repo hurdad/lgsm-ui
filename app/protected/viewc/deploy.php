@@ -83,7 +83,7 @@
                     <th>IP</th>
                     <th>Deploy Status</th>
                     <th>VM Status</th>
-                    <th>Services</th>
+                    <th>Assigned Services</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -106,9 +106,9 @@
                           <ul class="dropdown-menu" id="vm-options">
                             <li op="start" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start</a></li>
                             <li op="stop" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop</a></li>
-                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Connect</a></li>
+                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="ssh://<?php echo $v['data']['ssh_username'] . "@" .  $v['data']['ip']; ?>">SSH Access</a></li>
                             <li op="resize" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
-                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
+                            <li op="delete" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
                           </ul>
                         </div>
                         <div class="btn-group" role="group">

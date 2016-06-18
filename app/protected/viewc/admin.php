@@ -64,8 +64,8 @@
         <li><a data-target="#virtualbox" data-toggle="tab">VirtualBox Server</a></li>
         <li><a data-target="#github" data-toggle="tab">GitHub Repos</a></li>
         <li><a data-target="#base-images" data-toggle="tab">Base Images</a></li>
-        <li><a data-target="#gearman-servers" data-toggle="tab">Gearman Servers</a></li>
-        <li><a data-target="#gearman-workers" data-toggle="tab">Gearman Workers</a></li>
+        <li><a data-target="#gearman" data-toggle="tab">Gearman Servers</a></li>
+        <li><a data-target="#workers" data-toggle="tab">Gearman Workers</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="games">
@@ -212,7 +212,7 @@
                     <td><?php echo $i['name'];?></td>
                     <td><?php echo $i['architecture'];?></td>
                     <td><?php echo $i['glibc_version'];?></td>
-                    <td><?php echo $i['username'];?></td>
+                    <td><?php echo $i['ssh_username'];?></td>
                     <td width="90"><button class="btn btn-sm btn-info" action="edit-baseimage" baseimage-id="<?php echo $i['id'];?>" type="button">Edit</a></td>
                     <td width="90"><button class="btn btn-sm btn-danger" action="delete-baseimage" baseimage-id="<?php echo $i['id'];?>" type="button">Delete</a></td>
                   </tr>
@@ -220,7 +220,7 @@
             </tbody>
           </table>
         </div>
-        <div class="tab-pane" id="gearman-servers">
+        <div class="tab-pane" id="gearman">
           <div class="btn-group pull-right">
             <button class="btn btn-success" action="add-gearman">Add Gearman Server</a>
           </div>
@@ -247,7 +247,7 @@
             </tbody>
           </table>
         </div>
-        <div class="tab-pane" id="gearman-workers">
+        <div class="tab-pane" id="workers">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -263,7 +263,7 @@
                     <td><?php echo $s['function_name'];?></td>
                     <td><?php echo $s['worker_count'];?></td>
                     <td ><?php echo ($s['enabled'] == 1) ? "true" : "false"; ;?></td>
-                    <td width="90"><button class="btn btn-sm btn-info" action="edit-gearman-worker" gearman-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
+                    <td width="90"><button class="btn btn-sm btn-info" action="edit-worker" worker-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
                   </tr>
 <?php endforeach; ?>
             </tbody>
@@ -747,6 +747,12 @@
                   <textarea class="form-control" rows="5" id="edit-baseimage-sshkey-textarea"></textarea>
                 </div>
               </div>
+              <div class="form-group">
+                <label for="edit-baseimage-sshport-text" class="col-sm-3 control-label">SSH Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" rows="5" id="edit-baseimage-sshport-text">
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -815,6 +821,12 @@
                 <label for="add-baseimage-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
                 <div class="col-sm-8">
                   <textarea class="form-control" rows="5" id="add-baseimage-sshkey-textarea"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="add-baseimage-sshport-text" class="col-sm-3 control-label">SSH Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" rows="5" id="add-baseimage-sshport-text" placeholder="22"></textarea>
                 </div>
               </div>
             </form>
@@ -910,6 +922,47 @@
       </div>
     </div>
 
+    <!-- worker edit modal -->
+    <div class="modal fade" id="edit-worker-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Worker Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="edit-worker-function-text" class="col-sm-3 control-label">Function</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-worker-function-text" disabled>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-worker-count-text" class="col-sm-3 control-label">Worker Count</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-worker-count-text">
+                </div>
+              </div>
+               <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="edit-worker-enabled-checkbox">Enabled</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="edit-worker-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="edit-worker-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -921,5 +974,6 @@
     <script src="global/js/admin-github.js"></script>
     <script src="global/js/admin-baseimages.js"></script>
     <script src="global/js/admin-gearman.js"></script>
+    <script src="global/js/admin-worker.js"></script>
   </body>
 </html>

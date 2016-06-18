@@ -43,9 +43,14 @@ class BaseImages extends DooModel{
      */
     public $ssh_password;
 
+    /**
+     * @var int Max length is 11.
+     */
+    public $ssh_port;
+
     public $_table = 'base_images';
     public $_primarykey = 'id';
-    public $_fields = array('id','vbox_soap_endpoints_id','name','glibc_version','architecture','ssh_username','ssh_key','ssh_password');
+    public $_fields = array('id','vbox_soap_endpoints_id','name','glibc_version','architecture','ssh_username','ssh_key','ssh_password','ssh_port');
 
     public function getVRules() {
         return array(
@@ -87,6 +92,12 @@ class BaseImages extends DooModel{
                 'ssh_password' => array(
                         array( 'maxlength', 45 ),
                         array( 'optional' ),
+                ),
+
+                'ssh_port' => array(
+                        array( 'integer' ),
+                        array( 'maxlength', 11 ),
+                        array( 'notnull' ),
                 )
             );
     }
