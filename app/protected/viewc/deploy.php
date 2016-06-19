@@ -68,7 +68,7 @@
             </div>
             <h4 class="panel-title" style="padding-top: 7.5px;">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
-                <?php echo explode("|", $g)[0] . " (" . count($vboxes) . ")";?>
+                <?php echo explode("|", $g)[0] . " - " . count($vboxes);?>
               </a>
             </h4>
  
@@ -107,8 +107,8 @@
                             <li op="start" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start</a></li>
                             <li op="stop" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop</a></li>
                             <li vm-id="<?php echo $v['data']['id'] ?>"><a href="ssh://<?php echo $v['data']['ssh_username'] . "@" .  $v['data']['ip']; ?>">SSH Access</a></li>
-                            <li op="resize" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
-                            <li op="delete" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
+                            <li id="resize-button" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
+                            <li id="delete-button" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
                           </ul>
                         </div>
                         <div class="btn-group" role="group">
@@ -133,6 +133,26 @@
           </div>
         </div>        
 <?php $cnt++; endforeach; ?>
+      </div>
+    </div>
+
+    <!-- confirmation delete modal -->
+    <div class="modal fade" id="confirmation-delete-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Confirmation</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <div id="confirmation-delete-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a id="continue-delete-button" href="#" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -215,6 +235,40 @@
         </div>
       </div>
     </div>
+
+    <!-- resize modal -->
+    <div class="modal fade" id="resize-modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Resize Config</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+             <div class="form-group">
+                <label for="resize-cpu-text" class="col-sm-3 control-label">CPU</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="resize-cpu-text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="resize-mem-text" class="col-sm-3 control-label">Memory</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="resize-mem-text">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div id="resize-alert" class="alert alert-danger"></div>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" id="resize-modal-save" class="btn btn-primary">Save</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

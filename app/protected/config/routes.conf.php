@@ -65,18 +65,18 @@ $route['get']['/status'] = array('DesktopController', 'status');
 
 //vbox routes
 $route['post']['/virtualbox/add'] = array('VirtualBoxController', 'add', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/virtualbox/stop/:id'] = array('VirtualBoxController', 'stop', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/virtualbox/start/:id'] = array('VirtualBoxController', 'start', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/virtualbox/resize/:id'] = array('VirtualBoxController', 'resize', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/virtualbox/delete/:id'] = array('VirtualBoxController', 'delete', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
+$route['post']['/virtualbox/stop/:id'] = array('VirtualBoxController', 'stop', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
+$route['post']['/virtualbox/start/:id'] = array('VirtualBoxController', 'start', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
+$route['post']['/virtualbox/resize/:id/:cpu/:mem'] = array('VirtualBoxController', 'resize', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/', 'cpu' => '/^\d+$/', 'mem' => '/^\d+$/'));
+$route['post']['/virtualbox/delete/:id'] = array('VirtualBoxController', 'delete', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
 
 //service routes (ssh)
-$route['post']['/service/startall/:id'] = array('ServiceController', 'startall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/service/stopall/:id'] = array('ServiceController', 'stopall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
-$route['post']['/service/update/:id'] = array('ServiceController', 'update',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
+$route['post']['/service/startall/:id'] = array('ServiceController', 'startall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
+$route['post']['/service/stopall/:id'] = array('ServiceController', 'stopall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
+$route['post']['/service/update/:id'] = array('ServiceController', 'update',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
 
 //util routes
-$route['get']['/util/services/:games_id'] = array('UtilController', 'services', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!');
+$route['get']['/util/services/:games_id'] = array('UtilController', 'services', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('games_id' => '/^\d+$/'));
 
 //CLI Gearman Worker
 $route['cli']['worker'] = array('GearmanWorkerCLIController', 'worker');

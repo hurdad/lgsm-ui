@@ -68,4 +68,7 @@ $route['get']['/db/workers/:id'] = array('db/DBWorkersController', 'view', 'matc
 // PUT
 $route['put']['/db/workers/:id'] = array('db/DBWorkersController', 'update', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
 
+// GET 
+$route['get']['/db/virtualboxes/:id'] = array('db/DBVirtualBoxesController', 'view', 'match'=> array('id'=>'/^\d+$/'), 'authName'=>'DooPHP Admin', 'auth'=>$user, 'authFail'=>'Unauthorized!');
+
 ?>

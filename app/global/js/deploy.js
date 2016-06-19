@@ -48,7 +48,7 @@ $(function() {
                         $("#add-vbox-alert").show();
                     }
 
-                      //show
+                    //show
                     $('#add-vm-modal').modal('show');
                }
            });
@@ -63,7 +63,7 @@ $(function() {
         	vm.games_id = $("#add-vm-game-select").val();
         	vm.github_id = $("#add-vm-github-select").val();
             vm.cpu = $("#add-vm-cpu-text").val();
-            vm.mem = $("#add-vm-mem-text").val();
+            vm.memory_mb = $("#add-vm-mem-text").val();
             vm.services = $("#add-vm-service-select").val();
             vm.image_id = $("#add-vm-image-select").val();
          
@@ -134,6 +134,91 @@ $(function() {
                     }
                 });
             }
+        });
+
+        //resize button handler
+        var vm_id;
+        $('#resize-button').click(function() {
+
+            //get virtualbox id
+            vm_id = $(this).attr('vm-id');
+
+              //hide alert
+            $("#resize-alert").hide();
+
+            //get github-id
+            github_id = $(this).attr('github-id');
+            $.ajax({
+                type: "GET",
+                url: 'db/virtualboxes/' + vm_id,
+                dataType: "json",
+                success: function(response) {
+                    if (response.success) {
+                        $("#resize-cpu-text").val(response.data.cpu);
+                        $("#resize-mem-text").val(response.data.memory_mb);
+                        $('#resize-modal').modal('show');
+                    } else {
+                        //show alert
+                        $("#resize-alert").empty();
+                        $("#resize-alert").append(response.message);
+                        $("#resize-alert").show();
+                    }
+                }
+            });
+        });
+
+        //resize save
+        $("#resize-modal-save").click(function() {
+
+            console.log('save');
+
+            var cpu = $("#resize-cpu-text").val();
+            var mem = $("#resize-mem-text").val();
+         
+            $.ajax({
+                type: "POST",
+                url: 'virtualbox/resize/' + vm_id + '/' + cpu + '/' + mem,
+                contentType: 'json',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success)
+                        window.location.reload();
+                    else{
+                         //show alert
+                        $("#resize-alert").empty();
+                        $("#resize-alert").append(response.message);
+                        $("#resize-alert").show();
+                    }
+                }
+            });
+        });
+
+        //delete click handler
+        $('#delete-button').click(function() {
+            console.log('delete-button');
+            $('#confirmation-delete-alert').hide();
+            vm_id = $(this).attr('vm-id');
+            $('#confirmation-delete-modal').modal('show');
+        });
+
+        //delete confirmation confirm
+        $("#continue-delete-button").click(function() {
+            $.ajax({
+                type: "POST",
+                url: 'virtualbox/delete/' + vm_id,
+                contentType: 'json',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success)
+                        window.location.reload();
+                    else{
+                         //show alert
+                        $("#vm-alert").empty();
+                        $("#vm-alert").append(response.message);
+                        $("#vm-alert").show();
+                    }
+                }
+            });
         });
     });
 });

@@ -192,26 +192,70 @@ class VirtualBoxController extends DooController {
 		$conf->username = $vbox['username'];
 		$conf->password = $vbox['password']; 
 
-		//set vm machine state
+		//set vm details
 		try{
 			$vbox_conn = new vboxconnector(false, $conf);		
 			$machine = $vbox_conn->remote_vboxGetMachines(array("vm"=> $vbox['hostname']));
+
+			//check if running
+			$vmState = (string)$machine[0]['state'];
+			$vmRunning = ($vmState == 'Running' || $vmState == 'Paused' || $vmState == 'Saved');
+			if($vmRunning){
+ 				$this->res->success = false;
+		    	$this->res->message = "VM is not Powered Down!";
+		    	return;
+			}
+
 			$machine_id = $machine[0]['id'];
-			var_dump($machine_id);
 			$details = $vbox_conn->remote_machineGetDetails(array("vm" => $machine_id));
-		//	$details['id'] = $machine_id;
-			//$details['CPUCount'] = 2;
-			//$details['memorySize'] = 1024;
+			$medias = $vbox_conn->remote_vboxGetMedia();
 
+			// Incoming list
+			foreach($details['storageControllers'] as $sid => $sc){
 
-			var_dump(json_encode($details));
-			echo $vbox_conn->remote_machineSave($details);
+				// Medium attachments
+				foreach($sc['mediumAttachments'] as $ma) {
+
+					$medium_id = $ma['medium']['id'];
+					//scan medias
+					foreach($medias as $m){
+
+						//find matching medium
+						if($m['id'] == $medium_id){
+							$ma['medium']['hostDrive'] = $m['hostDrive'];
+							$ma['medium']['location'] = $m['location'];
+
+							//save hostDrive & location
+							$details['storageControllers'][$sid]['mediumAttachments'][0]['medium']['hostDrive'] = $m['hostDrive'];
+							$details['storageControllers'][$sid]['mediumAttachments'][0]['medium']['location'] = $m['location'];
+						}
+					}
+				}
+			}
+
+			//update 
+			$details['CPUCount'] = $this->params['cpu'];
+			$details['memorySize'] = $this->params['mem'];
+
+			//save
+			$vbox_conn->remote_machineSave($details);
+
+			//update vbox db
+			$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
+			$vm->cpu = $this->params['cpu'];
+			$vm->memory_mb = $this->params['mem'];
+			$vm->update();
+
+			//done
+			$this->res->success = true;
 
 
 		} catch (Exception $e) {
 		    $this->res->success = false;
 		    $this->res->message = $e->getMessage();
-		}
+		}	
+
+		
 	}
 
 	function delete() {
@@ -269,15 +313,15 @@ class VirtualBoxController extends DooController {
 			$vbox_conn->remote_machineRemove(array("vm" => $machine_id, "delete"=>"1"));
 			unset($vbox_conn); //disconnect
 
+			//remove from db
+			$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
+			$vm->delete();
+
 		} catch (Exception $e) {
 		    $this->res->success = false;
 		    $this->res->message = $e->getMessage();
 		    return;
 		}
-
-		//remove from database
-		$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
-		$vm->delete();
 
 		//done
 		$this->res->success = true;

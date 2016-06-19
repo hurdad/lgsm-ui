@@ -16,6 +16,11 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 		//query db
 		$vbox_id = $arg['vbox_id'];
 
+		$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
+		if(!isset($vm)){
+			throw new Net_Gearman_Job_Exception("Virtualbox Doesnt exist!");
+		}
+
 		$sql = "SELECT 
 			    ip,
 			    virtualboxes.ssh_username AS ssh_username,
@@ -43,6 +48,10 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 		if(count($services) == 0){
 			throw new Net_Gearman_Job_Exception("Service Error: Must have at least one assigned service!");
 		}
+
+		//update estatus
+		$vm->deploy_status = "Stopping Services..";
+		$vm->update();
 
 		//loop sevices
 		foreach($services as $service){
@@ -74,6 +83,10 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 			echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$script_name} stop");
 		}
 
+		//update estatus
+		$vm->deploy_status = "Applying Update..";
+		$vm->update();
+
 		//apply update
 		$ssh = new Net_SSH2($services[0]['ip'], $services[0]['ssh_port']);
 		//use ssh password
@@ -93,8 +106,13 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 		$ssh->setTimeout(0);
 
 		//run ssh command
-		echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$script_name} update");
+		$ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$script_name} update");
 
+		//update estatus
+		$vm->deploy_status = "Update Complete!";
+		$vm->update();
+
+		return true;
     }
 }
 

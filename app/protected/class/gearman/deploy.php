@@ -122,17 +122,40 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 		$machine_id = $machine[0]['id'];
 
-/*
 		//update status
 		$vm->deploy_status = "Resizing VM!" ;
 		$vm->update();
 
-		//resize CPU + MEM
-		$details = $vbox->remote_hostGetDetails(array("vm" => $machine_id));
-		$details['CPUCount'] = $vm->cpu;
-		$details['memorySize'] = $vm->memory_mb;
+		$details = $vbox->remote_machineGetDetails(array("vm" => $machine_id));
+		$medias = $vbox->remote_vboxGetMedia();
+
+		// Incoming list
+		foreach($details['storageControllers'] as $sid => $sc){
+
+			// Medium attachments
+			foreach($sc['mediumAttachments'] as $ma) {
+
+				$medium_id = $ma['medium']['id'];
+				//scan medias
+				foreach($medias as $m){
+
+					//find matching medium
+					if($m['id'] == $medium_id){
+						$ma['medium']['hostDrive'] = $m['hostDrive'];
+						$ma['medium']['location'] = $m['location'];
+
+						//save hostDrive & location
+						$details['storageControllers'][$sid]['mediumAttachments'][0]['medium']['hostDrive'] = $m['hostDrive'];
+						$details['storageControllers'][$sid]['mediumAttachments'][0]['medium']['location'] = $m['location'];
+					}
+				}
+			}
+		}
+
+		//resize machine 
+		$details['CPUCount'] = 2;//$vm->cpu;
+		$details['memorySize'] = 1024;//$vm->memory_mb;
 		$vbox->remote_machineSave($details);
-*/
 		
 		//update status
 		$vm->deploy_status = "Starting VM!" ;
@@ -247,7 +270,7 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 
 		//update status
-		$vm->deploy_status = "Deployment Comoplete!";
+		$vm->deploy_status = "Deployment Complete!";
 		$vm->update();
 
         return true;

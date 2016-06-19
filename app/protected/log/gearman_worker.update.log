@@ -1,0 +1,7 @@
+[K[[1;33m WARN [0m] Stopping cc-server: Config file missing!
+/home/lgsm/linuxgsm/CodenameCURE/serverfiles/cure/cfg/cc-server.cfg
+[K[ .... ] Stopping cc-server: [0;31mUNAVAILABLE[0m[K[[0;32m  OK  [0m] Stopping cc-server: [0;31mUNAVAILABLE[0m is already stopped
+[K[[1;33m WARN [0m] Stopping cc-server: Config file missing!
+/home/lgsm/linuxgsm/CodenameCURE/serverfiles/cure/cfg/cc-server.cfg
+[K[ .... ] Stopping cc-server: [0;31mUNAVAILABLE[0m[K[ .... ] Stopping cc-server: Graceful: rcon quit[K[ .... ] Stopping cc-server: Graceful: rcon quit: 1[K[[0;32m  OK  [0m] Stopping cc-server: Graceful: rcon quit: 2: [0;32mOK[0m
+[K[ .... ] Stopping cc-server: [0;31mUNAVAILABLE[0m[K[[0;32m  OK  [0m] Stopping cc-server: [0;31mUNAVAILABLE[0m
