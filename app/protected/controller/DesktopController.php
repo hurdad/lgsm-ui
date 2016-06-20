@@ -69,9 +69,9 @@ class DesktopController extends DooController {
 		    gearman_functions;";
 		$query_gearman_functions = Doo::db()->fetchAll($sql_gearman_functions);
 
-		set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
-		require_once 'Net/Gearman/Manager.php';
-		$manager = new Net_Gearman_Manager("localhost:4730");
+	//	set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
+//		require_once 'Net/Gearman/Manager.php';
+	//	$manager = new Net_Gearman_Manager("localhost:4730");
 		//var_dump($manager->status());
 		//return;
 

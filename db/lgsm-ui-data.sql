@@ -5,7 +5,6 @@ INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('depl
 INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('update', 1, 1);
 
 INSERT INTO github(url, branch) VALUES('https://github.com/dgibbs64/linuxgsm.git', 'master');
-INSERT INTO virtualboxes
 
 INSERT INTO query_engines(name, launch_uri) VALUES('None' ,'');
 INSERT INTO query_engines(name, launch_uri) VALUES('SOURCE' ,'steam://connect');
