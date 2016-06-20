@@ -7,8 +7,9 @@ INSERT INTO gearman_functions(function_name, worker_count, enabled) VALUES('upda
 INSERT INTO github(url, branch) VALUES('https://github.com/dgibbs64/linuxgsm.git', 'master');
 
 INSERT INTO query_engines(name, launch_uri) VALUES('None' ,'');
-INSERT INTO query_engines(name, launch_uri) VALUES('SOURCE' ,'steam://connect');
-INSERT INTO query_engines(name, launch_uri) VALUES('GOLDSOURCE' ,'steam://connect');
+INSERT INTO query_engines(name, launch_uri) VALUES('SOURCE' ,'steam://connect/');
+INSERT INTO query_engines(name, launch_uri) VALUES('GOLDSOURCE' ,'steam://connect/');
+INSERT INTO query_engines(name, launch_uri) VALUES('Team Speak' ,'ts3server://');
  
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (1, '7 Days To Die', '7DaysToDie', 2.15, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'sdtdserver', 26900, 1);
@@ -98,14 +99,14 @@ INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, 
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'tf2server', 27015, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (3, 'Team Fortress Classic', 'TeamFortressClassic', 2.07, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'tfcserver', 27015, 1);
-INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (1, 'Teamspeak 3', 'TeamSpeak3', 0.0, 0);
-INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ts3server', 27015, 1);
+INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (4, 'Teamspeak 3', 'TeamSpeak3', 0.0, 0);
+INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ts3server', 9987, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (2, 'Teeworlds', 'Teeworlds', 0.0, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'twserver', 27015, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (2, 'Terraria', 'Terraria', 0.0, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'terrariaserver', 27015, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (1, 'Unreal Tournament 2004', 'UnrealTournament2004', 2.00, 0);
-INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ut2k4server', 27015, 1);
+INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ut2k4server', 7777, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (1, 'Unreal Tournament 99', 'UnrealTournament99', 2.00, 0);
-INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ut99server', 27015, 1);
+INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'ut99server', 7777, 1);
 
