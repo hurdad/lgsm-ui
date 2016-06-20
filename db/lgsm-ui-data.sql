@@ -81,7 +81,7 @@ INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSER
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (2, 'Project Zomboid', 'ProjectZomboid', 0.0, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'pzserver', 27015, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (2, 'Quake Live', 'QuakeLive', 0.0, 0);
-INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'qlserver', 27015, 1);
+INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'qlserver', 27960, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (2, 'Red Orchestra: Ostfront 41-45', 'RedOrchestra', 2.07, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'roserver', 27015, 1);
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (3, 'Ricochet', 'Ricochet', 2.07, 0);
