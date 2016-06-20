@@ -586,7 +586,7 @@
               <div class="form-group">
                 <label for="add-vbox-machinefolder-text" class="col-sm-3 control-label">Machine Folder</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="add-vbox-machinefolder-text" placeholder="~/VirtualBox VMs">
+                  <input type="text" class="form-control" id="add-vbox-machinefolder-text" placeholder="/home/vbox/VirtualBox VMs">
                 </div>
               </div>
             </form>
