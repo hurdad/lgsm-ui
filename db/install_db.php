@@ -45,7 +45,7 @@ if((int)$res['count'] == 0){
 
 //Create database + tables
 writeLine("Installing 'lgsm-ui' database");
-$stmt = $dbh->query("CREATE DATABASE lgsm-ui");
+$stmt = $dbh->query("CREATE DATABASE `lgsm-ui`");
 $cmd = "mysql -u {$username} -p{$password} -D lgsm-ui < lgsm-ui.sql";
 $result = exec($cmd);
 //print if we have error?
