@@ -313,15 +313,15 @@ class VirtualBoxController extends DooController {
 			$vbox_conn->remote_machineRemove(array("vm" => $machine_id, "delete"=>"1"));
 			unset($vbox_conn); //disconnect
 
-			//remove from db
-			$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
-			$vm->delete();
-
 		} catch (Exception $e) {
 		    $this->res->success = false;
 		    $this->res->message = $e->getMessage();
 		    return;
 		}
+
+		//remove from db
+		$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
+		$vm->delete();
 
 		//done
 		$this->res->success = true;

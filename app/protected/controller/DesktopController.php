@@ -8,7 +8,7 @@ class DesktopController extends DooController {
 
 		//get games
 		$sql_games = "SELECT 
-		    id, full_name, folder_name, hidden
+		    id, full_name, folder_name, glibc_version_min, hidden
 		FROM
 		    games
 		ORDER BY full_name";

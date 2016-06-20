@@ -79,7 +79,7 @@
                 <thead>
                   <tr>
                     <th>OS</th>
-                    <th>Hostname</th>
+                    <th>Virtualbox Name</th>
                     <th>IP</th>
                     <th>Deploy Status</th>
                     <th>VM Status</th>
@@ -107,8 +107,8 @@
                             <li op="start" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start</a></li>
                             <li op="stop" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop</a></li>
                             <li vm-id="<?php echo $v['data']['id'] ?>"><a href="ssh://<?php echo $v['data']['ssh_username'] . "@" .  $v['data']['ip']; ?>">SSH Access</a></li>
-                            <li id="resize-button" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
-                            <li id="delete-button" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
+                            <li action="resize" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
+                            <li action="delete" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
                           </ul>
                         </div>
                         <div class="btn-group" role="group">
@@ -120,7 +120,7 @@
                             <li op="startall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start All</a></li>
                             <li op="stopall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop All</a></li>
                             <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Edit</a></li>
-                            <li op="update"vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Update</a></li>
+                            <li op="update" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Update</a></li>
                           </ul>
                         </div>
                       </div>
@@ -169,7 +169,7 @@
               <div class="form-group">
                 <label for="add-vm-game-select" class="col-sm-3 control-label">Game</label>
                 <div class="col-sm-8">
-                  <select class="form-control" id="add-vm-game-select">
+                  <select class="form-control" id="add-vm-game-select" disabled>
 <?php foreach($this->data['games'] as $g => $vboxes) : ?>
                     <option value="<?php echo explode("|", $g)[1];?>"><?php echo explode("|", $g)[0];?></option>
 <?php endforeach; ?>

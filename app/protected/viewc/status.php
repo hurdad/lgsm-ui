@@ -68,7 +68,7 @@
               </a>
             </h4>
           </div>
-          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse <?php echo ($cnt==0)?'in' :''; ?>" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
+          <div id="collapse<?php echo $cnt ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $cnt ?>">
             <div class="panel-body">
               <table class="table table-striped">
                 <thead>

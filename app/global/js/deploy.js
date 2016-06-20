@@ -56,7 +56,9 @@ $(function() {
 
         //vm add
         $("#add-vm-modal-save").click(function() {
-        	console.log('vm-save');
+
+            //hide
+            $("#add-vm-alert").empty();
 
         	var vm = {};
         	vm.vbox_soap_endpoints_id = $("#add-vm-vbox-select").val();
@@ -66,7 +68,32 @@ $(function() {
             vm.memory_mb = $("#add-vm-mem-text").val();
             vm.services = $("#add-vm-service-select").val();
             vm.image_id = $("#add-vm-image-select").val();
-         
+
+            //must select at least one service
+            if(vm.services == null){
+                console.log('err');
+                //show alert
+                $("#add-vm-alert").append("Must select at least one service!");
+                $("#add-vm-alert").show();
+                return;
+            }
+
+            //cpu greater than zero
+            if(vm.cpu.search(/^[1-9][0-9]*$/) == -1){
+                //show alert
+                $("#add-vm-alert").append("CPU must be number greater than 0");
+                $("#add-vm-alert").show();
+                return;
+            }
+
+            //mem greater than zero
+            if(vm.memory_mb.search(/^[1-9][0-9]*$/) == -1){
+                //show alert
+                $("#add-vm-alert").append("Memory (MB) must be number greater than 0");
+                $("#add-vm-alert").show();
+                return;
+            }
+
             $.ajax({
                 type: "POST",
                 url: 'virtualbox/add',
@@ -78,9 +105,9 @@ $(function() {
                         window.location.reload();
                     else{
                          //show alert
-                        $("#add-vbox-alert").empty();
-                        $("#add-vbox-alert").append(response.message);
-                        $("#add-vbox-alert").show();
+                        $("#add-vm-alert").empty();
+                        $("#add-vm-alert").append(response.message);
+                        $("#add-vm-alert").show();
                     }
                 }
             });
@@ -138,7 +165,8 @@ $(function() {
 
         //resize button handler
         var vm_id;
-        $('#resize-button').click(function() {
+        $('li[action="resize"]').click(function() {
+            console.log('resize');
 
             //get virtualbox id
             vm_id = $(this).attr('vm-id');
@@ -147,7 +175,7 @@ $(function() {
             $("#resize-alert").hide();
 
             //get github-id
-            github_id = $(this).attr('github-id');
+            vm_id = $(this).attr('vm-id');
             $.ajax({
                 type: "GET",
                 url: 'db/virtualboxes/' + vm_id,
@@ -170,10 +198,28 @@ $(function() {
         //resize save
         $("#resize-modal-save").click(function() {
 
-            console.log('save');
+            //hide
+            $("#resize-alert").empty();
 
+            //get values
             var cpu = $("#resize-cpu-text").val();
             var mem = $("#resize-mem-text").val();
+
+            //cpu greater than zero
+            if(cpu.search(/^[1-9][0-9]*$/) == -1){
+                //show alert
+                $("#resize-alert").append("CPU must be number greater than 0");
+                $("#resize-alert").show();
+                return;
+            }
+
+            //mem greater than zero
+            if(mem.search(/^[1-9][0-9]*$/) == -1){
+                //show alert
+                $("#resize-alert").append("Memory (MB) must be number greater than 0");
+                $("#resize-alert").show();
+                return;
+            }
          
             $.ajax({
                 type: "POST",
@@ -194,7 +240,7 @@ $(function() {
         });
 
         //delete click handler
-        $('#delete-button').click(function() {
+        $('li[action="delete"]').click(function() {
             console.log('delete-button');
             $('#confirmation-delete-alert').hide();
             vm_id = $(this).attr('vm-id');

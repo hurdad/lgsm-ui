@@ -131,7 +131,7 @@ $(function() {
             baseimage.ssh_username = $("#add-baseimage-username-text").val();
             baseimage.ssh_password = $("#add-baseimage-password-text").val();
             baseimage.ssh_key = $("#add-baseimage-sshkey-textarea").val();
-            baseimage.ssh_port = $("#edit-baseimage-sshport-text").val();
+            baseimage.ssh_port = $("#add-baseimage-sshport-text").val();
          
             $.ajax({
                 type: "POST",

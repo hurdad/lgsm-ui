@@ -239,7 +239,7 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		//update status
 		$vm->deploy_status = "Installing Dependancies..";
 		$vm->update();
-		echo $ssh->exec("sudo yum -y install tmux glibc.i686 libstdc++.i686");
+		//echo $ssh->exec("sudo yum -y install tmux glibc.i686 libstdc++.i686");
 
 		//update status
 		$vm->deploy_status = "Installing Game..";

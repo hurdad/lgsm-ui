@@ -77,6 +77,7 @@
               <tr>
                 <th>Name</th>
                 <th>Git Folder Path</th>
+                <th>GLIBC Version</th>
                 <th>Hidden</th>
                 <th></th>
                 <th></th>
@@ -87,6 +88,7 @@
                   <tr>
                     <td ><?php echo $g['full_name'];?></td>
                     <td ><?php echo $g['folder_name'];?></td>
+                     <td ><?php echo $g['glibc_version_min'];?></td>
                     <td ><?php echo ($g['hidden'] == 1) ? "true" : "false"; ;?></td>
                     <td width="90"><button class="btn btn-sm btn-info" action="edit-game" game-id="<?php echo $g['id'];?>" type="button">Edit</a></td>
                     <td width="90"><button class="btn btn-sm btn-danger" action="delete-game" game-id="<?php echo $g['id'];?>" type="button">Delete</a></td>
