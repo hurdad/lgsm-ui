@@ -1,14 +1,8 @@
 --TEST--
-Net_Gearman_Set, Net_Gearman_Client::runSet()
---SKIPIF--
-<?php
-die('skip THIS TEST IS BROKEN.');
-if (!file_exists(dirname(__FILE__) . '/tests-config.php')) {
-    die('skip This test requires a test-config.php file.');
-}
 --FILE--
 <?php
-require_once dirname(__FILE__) . '/tests-config.php';
+
+require_once 'tests-config.php';
 require_once 'Net/Gearman/Client.php';
 
 $sums = array(
@@ -28,7 +22,7 @@ $client->runSet($set);
 
 $superSum = 0;
 foreach ($set as $task) {
-    $superSum += $task->result["result"];
+    $superSum += $task->result->sum;
 }
 
 var_dump($superSum);

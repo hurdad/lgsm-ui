@@ -5,33 +5,33 @@
  *
  * PHP version 5.1.0+
  *
- * LICENSE: This source file is subject to the New BSD license that is
+ * LICENSE: This source file is subject to the New BSD license that is 
  * available through the world-wide-web at the following URI:
- * http://www.opensource.org/licenses/bsd-license.php. If you did not receive
- * a copy of the New BSD License and are unable to obtain it through the web,
+ * http://www.opensource.org/licenses/bsd-license.php. If you did not receive  
+ * a copy of the New BSD License and are unable to obtain it through the web, 
  * please send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category  Net
  * @package   Net_Gearman
- * @author    Joe Stump <joe@joestump.net>
- * @author    Brian Moon <brianm@dealnews.com>
+ * @author    Joe Stump <joe@joestump.net> 
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      https://github.com/brianlmoon/net_gearman
+ * @link      http://pear.php.net/package/Net_Gearman
+ * @link      http://www.danga.com/gearman/
  */
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Exception.php';
+require_once 'Net/Gearman/Exception.php';
 
 /**
  * The base connection class
  *
  * @category  Net
  * @package   Net_Gearman
- * @author    Joe Stump <joe@joestump.net>
- * @author    Brian Moon <brianm@dealnews.com>
+ * @author    Joe Stump <joe@joestump.net> 
  * @copyright 2007-2008 Digg.com, Inc.
- * @link      https://github.com/brianlmoon/net_gearman
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @link      http://www.danga.com/gearman/
  */
 class Net_Gearman_Connection
 {
@@ -42,7 +42,7 @@ class Net_Gearman_Connection
      * integery type (first key in second array) used in the binary header, and
      * the arguments / order of arguments to send/receive.
      *
-     * @var array $commands
+     * @var array $commands       
      * @see Net_Gearman_Connection::$magic
      * @see Net_Gearman_Connection::connect()
      */
@@ -57,9 +57,6 @@ class Net_Gearman_Connection
         'submit_job' => array(7, array('func', 'uniq', 'arg')),
         'submit_job_high' => array(21, array('func', 'uniq', 'arg')),
         'submit_job_bg' => array(18, array('func', 'uniq', 'arg')),
-        'submit_job_high_bg' => array(32, array('func', 'uniq', 'arg')),
-        'submit_job_low' => array(33, array('func', 'uniq', 'arg')),
-        'submit_job_low_bg' => array(34, array('func', 'uniq', 'arg')),
         'job_created' => array(8, array('handle')),
         'grab_job' => array(9, array()),
         'no_job' => array(10, array()),
@@ -82,7 +79,7 @@ class Net_Gearman_Connection
      * it's keyed by the magic (integer value) value of the command.
      *
      * @var array $magic
-     * @see Net_Gearman_Connection::$commands
+     * @see Net_Gearman_Connection::$commands 
      * @see Net_Gearman_Connection::connect()
      */
     static protected $magic = array();
@@ -96,7 +93,7 @@ class Net_Gearman_Connection
      *
      * @access      public
      * @var         array           $waiting
-     * @static
+     * @static 
      */
     static public $waiting = array();
 
@@ -125,14 +122,14 @@ class Net_Gearman_Connection
      *
      * @param string $host    e.g. 127.0.0.1 or 127.0.0.1:7003
      * @param int    $timeout Timeout in milliseconds
-     *
+     * 
      * @return resource A connection to a Gearman server
      * @throws Net_Gearman_Exception when it can't connect to server
      * @see Net_Gearman_Connection::$waiting
      * @see Net_Gearman_Connection::$magic
      * @see Net_Gearman_Connection::$commands
      */
-    static public function connect($host, $timeout = 250)
+    static public function connect($host, $timeout = 2000)
     {
         if (!count(self::$magic)) {
             foreach (self::$commands as $cmd => $i) {
@@ -140,55 +137,27 @@ class Net_Gearman_Connection
             }
         }
 
+        $err   = '';
+        $errno = 0;
+        $port  = 7003;
+
         if (strpos($host, ':')) {
             list($host, $port) = explode(':', $host);
-        } else {
-            $port  = 4730;
         }
 
-        /**
-         * Translate $timeout in milliseconds to seconds and µ seconds
-         */
-        if($timeout >= 1000){
-            $ts_seconds = $timeout / 1000;
-            $tv_sec = floor($ts_seconds);
-            $tv_usec = ($ts_seconds - $tv_sec) * 1000000;
-        } else {
-            $tv_sec = 0;
-            $tv_usec = $timeout * 1000;
-        }
-
-
-        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-
-        /**
-         * The SO_SNDTIMEO timeout acts as the connect timeout.
-         */
-        socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array("sec"=>$tv_sec, "usec" => $tv_usec));
-
-        /**
-         * Explicitly set this to blocking which should be the default
-         */
-        socket_set_block($socket);
-
-        $now = microtime(true);
-
-        $socket_connected = @socket_connect($socket, $host, $port);
-
-        $elapsed = microtime(true) - $now;
-
-        if($socket_connected){
+        $start = microtime(true);
+        do {
+            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            @socket_connect($socket, $host, $port);
+            $errorCode = socket_last_error($socket);
+            
             socket_set_nonblock($socket);
-            socket_set_option($socket, SOL_SOCKET, SO_KEEPALIVE, 1);
-            socket_set_option($socket, SOL_SOCKET, SO_SNDTIMEO, array("sec"=>$tv_sec, "usec" => $tv_usec));
-            socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec"=>$tv_sec, "usec" => $tv_usec));
-            // socket_set_option($socket, SOL_TCP, SO_DEBUG, 1); // Debug
-        } else {
-            $errno = socket_last_error($socket);
-            $errstr = socket_strerror($errno);
-            throw new Net_Gearman_Exception(
-                "Can't connect to server ($errno: $errstr)"
-            );
+            socket_set_option($socket, SOL_TCP, 1, 1);
+            $timeLeft = ((microtime(true) - $start) * 1000);
+        } while (!is_resource($socket) && $timeLeft < $timeout);
+
+        if ($errorCode == 111) {
+            throw new Net_Gearman_Exception("Can't connect to server");
         }
 
         self::$waiting[(int)$socket] = array();
@@ -206,10 +175,10 @@ class Net_Gearman_Connection
      * @param resource $socket  The socket to send the command to
      * @param string   $command Command to send (e.g. 'can_do')
      * @param array    $params  Params to send
-     *
+     * 
      * @see Net_Gearman_Connection::$commands, Net_Gearman_Connection::$socket
      * @return boolean
-     * @throws Net_Gearman_Exception on invalid command or unable to write
+     * @throws Net_Gearman_Exception on invalid command or unable to write 
      */
     static public function send($socket, $command, array $params = array())
     {
@@ -226,29 +195,29 @@ class Net_Gearman_Connection
 
         $d = implode("\x00", $data);
 
-        $cmd = "\0REQ" . pack("NN",
-                              self::$commands[$command][0],
+        $cmd = "\0REQ" . pack("NN", 
+                              self::$commands[$command][0], 
                               self::stringLength($d)) . $d;
 
-        $cmdLength = self::stringLength($cmd);
+        $cmdLength = self::stringLength($cmd); 
         $written = 0;
         $error = false;
         do {
-            $check = @socket_write($socket,
-                                   self::subString($cmd, $written, $cmdLength),
+            $check = @socket_write($socket, 
+                                   self::subString($cmd, $written, $cmdLength), 
                                    $cmdLength);
 
             if ($check === false) {
-                if (socket_last_error($socket) == SOCKET_EAGAIN or
+                if (socket_last_error($socket) == SOCKET_EAGAIN or            
                     socket_last_error($socket) == SOCKET_EWOULDBLOCK or
-                    socket_last_error($socket) == SOCKET_EINPROGRESS)
+                    socket_last_error($socket) == SOCKET_EINPROGRESS) 
                 {
                   // skip this is okay
                 }
                 else
                 {
-                    $error = true;
-                    break;
+                   $error = true;
+                   break;   
                 }
             }
 
@@ -256,10 +225,8 @@ class Net_Gearman_Connection
         } while ($written < $cmdLength);
 
         if ($error === true) {
-            $errno = socket_last_error($socket);
-            $errstr = socket_strerror($errno);
             throw new Net_Gearman_Exception(
-                "Could not write command to socket ($errno: $errstr)"
+                'Could not write command to socket'
             );
         }
     }
@@ -268,7 +235,7 @@ class Net_Gearman_Connection
      * Read command from Gearman
      *
      * @param resource $socket The socket to read from
-     *
+     * 
      * @see Net_Gearman_Connection::$magic
      * @return array Result read back from Gearman
      * @throws Net_Gearman_Exception connection issues or invalid responses
@@ -277,20 +244,20 @@ class Net_Gearman_Connection
     {
         $header = '';
         do {
-            $buf = @socket_read($socket, 12 - self::stringLength($header));
+            $buf = socket_read($socket, 12 - self::stringLength($header));
             $header .= $buf;
-        } while ($buf !== false &&
+        } while ($buf !== false && 
                  $buf !== '' && self::stringLength($header) < 12);
-
+        
         if ($buf === '') {
             throw new Net_Gearman_Exception("Connection was reset");
-        }
-
+        }        
+        
         if (self::stringLength($header) == 0) {
             return array();
         }
         $resp = @unpack('a4magic/Ntype/Nlen', $header);
-
+          
         if (!count($resp) == 3) {
             throw new Net_Gearman_Exception('Received an invalid response');
         }
@@ -305,12 +272,12 @@ class Net_Gearman_Connection
         if ($resp['len'] > 0) {
             $data = '';
             while (self::stringLength($data) < $resp['len']) {
-                $data .= @socket_read($socket, $resp['len'] - self::stringLength($data));
+                $data .= socket_read($socket, $resp['len'] - self::stringLength($data));
             }
 
             $d = explode("\x00", $data);
             foreach (self::$magic[$resp['type']][1] as $i => $a) {
-                $return[$a] = $d[$i];
+                $return[$a] = $d[$i]; 
             }
         }
 
@@ -320,7 +287,9 @@ class Net_Gearman_Connection
                 $return['err_text'] = 'Unknown error; see error code.';
             }
 
-            throw new Net_Gearman_Exception("({$return['err_code']}): {$return['err_text']}");
+            throw new Net_Gearman_Exception(
+                $return['err_text'], $return['err_code']
+            );
         }
 
         return array('function' => self::$magic[$resp['type']][0],
@@ -330,14 +299,14 @@ class Net_Gearman_Connection
 
     /**
      * Blocking socket read
-     *
+     * 
      * @param resource $socket  The socket to read from
      * @param float    $timeout The timeout for the read
-     *
+     * 
      * @throws Net_Gearman_Exception on timeouts
      * @return array
      */
-    static public function blockingRead($socket, $timeout = 3)
+    static public function blockingRead($socket, $timeout = 500) 
     {
         static $cmds = array();
 
@@ -345,8 +314,8 @@ class Net_Gearman_Connection
         $tv_usec = ($timeout * 1000);
 
         $start = microtime(true);
-        while (count($cmds) == 0) {
-            if (((microtime(true) - $start)) > $timeout) {
+        while (count($cmds) == 0) { 
+            if (((microtime(true) - $start) * 1000) > $timeout) {
                 throw new Net_Gearman_Exception('Blocking read timed out');
             }
 
@@ -354,18 +323,11 @@ class Net_Gearman_Connection
             $except = null;
             $read   = array($socket);
 
-            $ts_start = microtime(true);
-            @socket_select($read, $write, $except, $tv_sec, $tv_usec);
-            $elapsed = (microtime(true) - $ts_start) * 1000;
-
-            if(rand(1,1000) == 1){
-                socket_getpeername($socket, $addr);
-            }
-
+            socket_select($read, $write, $except, $tv_sec, $tv_usec);
             foreach ($read as $s) {
                 $cmds[] = Net_Gearman_Connection::read($s);
             }
-        }
+        } 
 
         return array_shift($cmds);
     }
@@ -374,23 +336,12 @@ class Net_Gearman_Connection
      * Close the connection
      *
      * @param resource $socket The connection/socket to close
-     *
+     * 
      * @return void
      */
     static public function close($socket)
     {
         if (is_resource($socket)) {
-            socket_set_block($socket);
-            socket_set_option(
-                $socket,
-                SOL_SOCKET,
-                SO_LINGER,
-                array(
-                    'l_onoff' => 1,
-                    'l_linger' => 1
-                )
-            );
-            socket_shutdown($socket);
             socket_close($socket);
         }
     }
@@ -405,7 +356,7 @@ class Net_Gearman_Connection
     static public function isConnected($conn)
     {
         return (is_null($conn) !== true &&
-                is_resource($conn) === true &&
+                is_resource($conn) === true && 
                 strtolower(get_resource_type($conn)) == 'socket');
     }
 
@@ -413,7 +364,7 @@ class Net_Gearman_Connection
      * Determine if we should use mb_strlen or stock strlen
      *
      * @param string $value The string value to check
-     *
+     * 
      * @return integer Size of string
      * @see Net_Gearman_Connection::$multiByteSupport
      */
@@ -423,7 +374,7 @@ class Net_Gearman_Connection
             self::$multiByteSupport = intval(ini_get('mbstring.func_overload'));
         }
 
-        if (self::$multiByteSupport & 2) {
+        if (self::$multiByteSupport & 2) { 
             return mb_strlen($value, '8bit');
         } else {
             return strlen($value);
@@ -448,10 +399,12 @@ class Net_Gearman_Connection
             self::$multiByteSupport = intval(ini_get('mbstring.func_overload'));
         }
 
-        if (self::$multiByteSupport & 2) {
+        if (self::$multiByteSupport & 2) { 
             return mb_substr($str, $start, $length, '8bit');
         } else {
             return substr($str, $start, $length);
         }
     }
 }
+
+?>

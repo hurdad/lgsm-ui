@@ -5,24 +5,24 @@
  *
  * PHP version 5.1.0+
  *
- * LICENSE: This source file is subject to the New BSD license that is
+ * LICENSE: This source file is subject to the New BSD license that is 
  * available through the world-wide-web at the following URI:
- * http://www.opensource.org/licenses/bsd-license.php. If you did not receive
- * a copy of the New BSD License and are unable to obtain it through the web,
+ * http://www.opensource.org/licenses/bsd-license.php. If you did not receive  
+ * a copy of the New BSD License and are unable to obtain it through the web, 
  * please send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category  Net
  * @package   Net_Gearman
- * @author    Joe Stump <joe@joestump.net>
- * @author    Brian Moon <brianm@dealnews.com>
+ * @author    Joe Stump <joe@joestump.net> 
  * @copyright 2007-2008 Digg.com, Inc.
  * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
  * @version   CVS: $Id$
- * @link      https://github.com/brianlmoon/net_gearman
+ * @link      http://pear.php.net/package/Net_Gearman
+ * @link      http://www.danga.com/gearman/
  */
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Job' . DIRECTORY_SEPARATOR . 'Common.php';
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Exception.php';
+require_once 'Net/Gearman/Job/Common.php';
+require_once 'Net/Gearman/Exception.php';
 
 // Define this if you want your Jobs to be stored in a different
 // path than the default.
@@ -40,10 +40,11 @@ if (!defined('NET_GEARMAN_JOB_CLASS_PREFIX')) {
  *
  * @category  Net
  * @package   Net_Gearman
- * @author    Joe Stump <joe@joestump.net>
- * @author    Brian Moon <brianm@dealnews.com>
+ * @author    Joe Stump <joe@joestump.net> 
  * @copyright 2007-2008 Digg.com, Inc.
- * @link      https://github.com/brianlmoon/net_gearman
+ * @license   http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @link      http://www.danga.com/gearman/
+ * @see       Net_Gearman_Job_Common, Net_Gearman_Worker
  */
 abstract class Net_Gearman_Job
 {
@@ -58,43 +59,27 @@ abstract class Net_Gearman_Job
      * @param string $job    Name of job (func in Gearman terms)
      * @param object $conn   Instance of Net_Gearman_Connection
      * @param string $handle Gearman job handle of job
-     * @param string $initParams initialisation parameters for job
-     *
+     * 
      * @return object Instance of Net_Gearman_Job_Common child
      * @see Net_Gearman_Job_Common
      * @throws Net_Gearman_Exception
      */
-    static public function factory($job, $conn, $handle, $initParams=array())
+    static public function factory($job, $conn, $handle)
     {
-        if (empty($initParams['path'])) {
-            $file = NET_GEARMAN_JOB_PATH . '/' . $job . '.php';
-        }
-        else {
-            $file = $initParams['path'];
-        }
-
-        if ( ! file_exists($file) ) {
-            throw new Net_Gearman_Job_Exception('Invalid Job class file: ' . (empty($file) ? '<empty>' : $file));
-        }
-
+        $file = NET_GEARMAN_JOB_PATH . '/' . $job . '.php';
         include_once $file;
-
-        if (empty($initParams['class_name'])) {
-            $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
-        }
-        else {
-            $class = $initParams['class_name'];
-        }
-
+        $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
         if (!class_exists($class)) {
-            throw new Net_Gearman_Job_Exception('Invalid Job class: ' . (empty($class) ? '<empty>' : $class) . ' in ' . (empty($file) ? '<empty>' : $file) );
+            throw new Net_Gearman_Job_Exception('Invalid Job class');
         }
-
-        $instance = new $class($conn, $handle, $initParams);
+    
+        $instance = new $class($conn, $handle);
         if (!$instance instanceof Net_Gearman_Job_Common) {
-            throw new Net_Gearman_Job_Exception('Job is of invalid type: ' . get_class($instance));
+            throw new Net_Gearman_Job_Exception('Job is of invalid type');
         }
 
         return $instance;
     }
 }
+
+?>
