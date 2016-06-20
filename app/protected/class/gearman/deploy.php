@@ -153,8 +153,8 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		}
 
 		//resize machine 
-		$details['CPUCount'] = 2;//$vm->cpu;
-		$details['memorySize'] = 1024;//$vm->memory_mb;
+		$details['CPUCount'] = $vm->cpu;
+		$details['memorySize'] = $vm->memory_mb;
 		$vbox->remote_machineSave($details);
 		
 		//update status
