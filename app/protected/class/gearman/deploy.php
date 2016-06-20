@@ -267,7 +267,8 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		//start services
 		foreach($services as $s){
 			$game_folder_name = $game->folder_name;
-			echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$install_script} start");
+			$script_name = $s['script_name'];
+			echo $ssh->exec("cd {$github_folder}/{$game_folder_name} && ./{$script_name} start");
 		}
 
 		//update status
