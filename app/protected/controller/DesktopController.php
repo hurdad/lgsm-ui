@@ -182,7 +182,7 @@ class DesktopController extends DooController {
 		require dirname(Doo::conf()->SITE_PATH) . "/include/PHP-Source-Query/SourceQuery/bootstrap.php";
 	
 		$sql = "SELECT 
-		    full_name, ip, port, query_engines.name AS query_engine_name
+		    full_name, ip, port, query_engines.name AS query_engine_name, launch_uri
 		FROM
 		    virtualboxes
 		        JOIN

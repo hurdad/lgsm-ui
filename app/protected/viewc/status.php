@@ -85,7 +85,7 @@
                     <td><?php echo $s['query']['HostName'];?></td>
                     <td><?php echo $s['query']['Map'];?></td>
                     <td><?php echo $s['query']['Players'] . " / " . $s['query']['MaxPlayers'];?></td>
-                    <td width="90"><a class="btn btn-sm btn-success" type="button" href="steam://connect/<?php echo $s['data']['ip']; echo ":"; echo $s['data']['port']; ?>">Connect</a></td>
+                    <td width="90"><a class="btn btn-sm btn-success" type="button" href="<?php echo $s['data']['launch_uri'] . $s['data']['ip']; echo ":"; echo $s['data']['port']; ?>">Connect</a></td>
                   </tr>
 <?php endforeach; ?>
                 </tbody>
