@@ -255,8 +255,9 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 			echo $ssh->exec("cd {$github_folder}/{$game_folder_name}/ && chmod +x {$script_name}");
 		}
 
-		//pick first service to run auto-install
-		$install_script = $services[0]['script_name'];
+		//pick default service to run auto-install
+		$s = Doo::db()->getOne('Services', array('where' => 'games_id = ? AND is_default = 1', 'param' => array($game->id)));
+		$install_script = $s->script_name;
 		echo $ssh->exec("cd {$github_folder}/{$game_folder_name}/ && ./{$install_script} auto-install");
 
 		//update status
