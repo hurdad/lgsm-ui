@@ -119,7 +119,6 @@
                           <ul class="dropdown-menu" id="service-options">
                             <li op="startall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Start All</a></li>
                             <li op="stopall" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Stop All</a></li>
-                            <li vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Edit</a></li>
                             <li op="update" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Update</a></li>
                           </ul>
                         </div>
