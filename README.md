@@ -102,7 +102,7 @@ var $username = 'vbox';
 var $password = 'pass';
 ```
 
-## Open web browser (phpvirtualbox(
+## Open web browser (phpvirtualbox)
 http://localhost/lgsm-ui/include/phpvirtualbox/
 login admin/admin
 
