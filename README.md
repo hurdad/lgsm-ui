@@ -16,11 +16,11 @@ LAMP DooPHP Web Application (/app folder)
 
 #Deployment Workflow:
 
-Clone Base Virtual Machine
-Resize VM
-Start VM
-Wait for IPv4 Address on primary network interface
-SSH into VM
+- Clone Base Virtual Machine
+- Resize VM
+- Start VM
+- Wait for IPv4 Address on primary network interface
+- SSH into VM
  - git clone lgsm repo
  - cd game/script auto-install
  - cd game/script start
