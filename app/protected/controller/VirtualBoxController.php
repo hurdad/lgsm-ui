@@ -61,6 +61,7 @@ class VirtualBoxController extends DooController {
 		  	$vm->ssh_username = $image->ssh_username;
 		  	$vm->ssh_password = $image->ssh_password;
 		  	$vm->ssh_key = $image->ssh_key;
+		  	$vm->ssh_port = $image->ssh_port;
             $new_id = $vm->insert();
 
             //insert services
