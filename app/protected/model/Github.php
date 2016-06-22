@@ -24,13 +24,13 @@ class Github extends DooModel{
     public $username;
 
     /**
-     * @var longtext
+     * @var tinyint Max length is 1.
      */
-    public $ssh_key;
+    public $use_ssh;
 
     public $_table = 'github';
     public $_primarykey = 'id';
-    public $_fields = array('id','url','branch','username','ssh_key');
+    public $_fields = array('id','url','branch','username','use_ssh');
 
     public function getVRules() {
         return array(
@@ -55,8 +55,10 @@ class Github extends DooModel{
                         array( 'optional' ),
                 ),
 
-                'ssh_key' => array(
-                        array( 'optional' ),
+                'use_ssh' => array(
+                        array( 'integer' ),
+                        array( 'maxlength', 1 ),
+                        array( 'notnull' ),
                 )
             );
     }

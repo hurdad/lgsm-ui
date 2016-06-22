@@ -229,7 +229,7 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		$vm->update();
 
 		//clone github repo into home directory
-		if(!isset($github->ssh_key)) { //https clone
+		if(!$github->use_ssh) { //https clone
 			$ssh->exec("git clone -b {$github->branch} {$github->url}");
 		}else { //ssh clone
 			$ssh->exec("ssh -o StrictHostKeyChecking=no git@github.com"); //disable strict host key checking
@@ -239,7 +239,6 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		//update status
 		$vm->deploy_status = "Installing Dependancies..";
 		$vm->update();
-		//echo $ssh->exec("sudo yum -y install tmux glibc.i686 libstdc++.i686");
 
 		//update status
 		$vm->deploy_status = "Installing Game..";

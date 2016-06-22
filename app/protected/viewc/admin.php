@@ -629,9 +629,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="edit-github-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
-                <div class="col-sm-8">
-                  <textarea class="form-control" rows="5" id="edit-github-sshkey-textarea"></textarea>
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="edit-github-usessh-checkbox">Use SSH</label>
+                  </div>
                 </div>
               </div>
             </form>
@@ -674,9 +676,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="edit-github-sshkey-textarea" class="col-sm-3 control-label">SSH Key</label>
-                <div class="col-sm-8">
-                  <textarea class="form-control" rows="5" id="add-github-sshkey-textarea"></textarea>
+                <div class="col-sm-offset-3 col-sm-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="add-github-usessh-checkbox">Use SSH</label>
+                  </div>
                 </div>
               </div>
             </form>

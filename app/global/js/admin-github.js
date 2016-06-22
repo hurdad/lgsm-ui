@@ -23,7 +23,8 @@ $(function() {
                         $("#edit-github-url-text").val(response.data.url);
                         $("#edit-github-branch-text").val(response.data.branch);
                         $("#edit-github-username-text").val(response.data.username);
-                        $("#edit-github-sshkey-textarea").val(response.data.ssh_key);
+                        $("#edit-github-usessh-checkbox").prop('checked', (response.data.use_ssh == 1 ? true: false));
+
                         id = response.data.id;
                         $('#edit-github-modal').modal('show');
                     } else {
@@ -44,7 +45,7 @@ $(function() {
             github.url = $("#edit-github-url-text").val();
             github.branch = $("#edit-github-branch-text").val();
             github.username = $("#edit-github-username-text").val();
-            github.ssh_key = $("#edit-github-sshkey-textarea").val();
+            github.use_ssh = $("#edit-github-usessh-checkbox").is(':checked') ? 1: 0;
         
             $.ajax({
                 type: "PUT",
@@ -118,6 +119,7 @@ $(function() {
             github.branch = $("#add-github-branch-text").val();
             github.username = $("#add-github-username-text").val();
             github.sshkey = $("#add-github-sshkey-textarea").val();
+            github.use_ssh = $("#edit-github-usessh-checkbox").is(':checked') ? 1: 0;
          
             $.ajax({
                 type: "POST",
