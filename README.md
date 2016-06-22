@@ -5,14 +5,14 @@ Automated deployment of linux game servers via web interface with VirtualBox bac
 #Architecture:
 
 LAMP DooPHP Web Application (/app folder)
-Linux Game Server Managers Script Suite (https://github.com/dgibbs64/linuxgsm)
-Headless VirtualBox + SOAP API (https://www.virtualbox.org/wiki/Linux_Downloads)
-Gearman Job Queue (http://gearman.org/)
+- Linux Game Server Managers Script Suite (https://github.com/dgibbs64/linuxgsm)
+- Headless VirtualBox + SOAP API (https://www.virtualbox.org/wiki/Linux_Downloads)
+- Gearman Job Queue (http://gearman.org/)
 
 #Libraries:
-phpVirtualBox SOAP wrapper 
-phpspeclib SSH2
-PHP-Source-Query (https://github.com/xPaw/PHP-Source-Query)
+- phpVirtualBox SOAP wrapper 
+- phpspeclib SSH2
+- PHP-Source-Query (https://github.com/xPaw/PHP-Source-Query)
 
 #Deployment Workflow:
 
