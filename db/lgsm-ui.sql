@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2016-06-19 22:06
+-- Generated: 2016-06-21 21:22
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -7,7 +7,7 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 CREATE SCHEMA IF NOT EXISTS `lgsm-ui` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `lgsm-ui`.`virtualboxes` (
   `ssh_username` VARCHAR(45) NULL DEFAULT NULL,
   `ssh_key` LONGTEXT NULL DEFAULT NULL,
   `ssh_password` VARCHAR(45) NULL DEFAULT NULL,
-  `ssh_port` INT(11) NOT NULL DEFAULT 22,
+  `ssh_port` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_virtualboxes_games_idx` (`games_id` ASC),
   INDEX `fk_virtualboxes_vbox_soap_endpoints_idx` (`vbox_soap_endpoints_id` ASC),
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `lgsm-ui`.`github` (
   `url` VARCHAR(100) NOT NULL,
   `branch` VARCHAR(45) NOT NULL DEFAULT 'master',
   `username` VARCHAR(45) NULL DEFAULT NULL,
-  `ssh_key` LONGTEXT NULL DEFAULT NULL,
+  `use_ssh` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
