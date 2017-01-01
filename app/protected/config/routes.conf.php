@@ -82,9 +82,8 @@ $route['get']['/util/services/:games_id'] = array('UtilController', 'services', 
 $route['cli']['worker'] = array('GearmanWorkerCLIController', 'worker');
 $route['cli']['stop_workers'] = array('GearmanWorkerCLIController', 'stop_workers');
 $route['cli']['check_workers'] = array('GearmanWorkerCLIController', 'check_workers');
-$route['cli']['test'] = array('GearmanWorkerCLIController', 'test');
 
-
+//error route
 $route['*']['/error'] = array('ErrorController', 'index');
 
 //------------------- DB REST Controllers ------------
