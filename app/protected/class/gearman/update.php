@@ -58,12 +58,13 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 
 			$ssh = new Net_SSH2($service['ip'], $service['ssh_port']);
 			//use ssh password
-			if(isset($service['ssh_password'])) {
+			if(isset($service['ssh_password']) && !empty($vm->ssh_password)){
 				if(!$ssh->login($service['ssh_username'], $service['ssh_password'])){
 					$this->res->message = "SSH login with pw failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
-			} else if(isset($service['ssh_key'])){ //use ssh key
+			} else if(isset($service['ssh_key']) && !empty($vm->ssh_key)){ //use ssh key
+				include_once('Crypt/RSA.php');
 				$key = new Crypt_RSA();
 				$key->loadKey($service['ssh_key']);
 				if (!$ssh->login($service['ssh_username'], $key)) {
@@ -90,12 +91,13 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 		//apply update
 		$ssh = new Net_SSH2($services[0]['ip'], $services[0]['ssh_port']);
 		//use ssh password
-		if(isset($services[0]['ssh_password'])) {
+		if(isset($services[0]['ssh_password']) && !empty($services[0]['ssh_password'])){
 			if(!$ssh->login($services[0]['ssh_username'], $services[0]['ssh_password'])){
 				$this->res->message = "SSH login with pw failed : " . $services[0]['ip'] . "@" . $services[0]['ssh_username'];
 				return;
 			}
-		} else if(isset($services[0]['ssh_key'])){ //use ssh key
+		} else if(isset($services[0]['ssh_key']) && !empty($services[0]['ssh_key'])){ //use ssh key
+			include_once('Crypt/RSA.php');
 			$key = new Crypt_RSA();
 			$key->loadKey($services[0]['ssh_key']);
 			if (!$ssh->login($services[0]['ssh_username'], $key)) {

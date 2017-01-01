@@ -59,15 +59,16 @@ class ServiceController extends DooController {
 
 			$ssh = new Net_SSH2($service['ip'], $service['ssh_port']);
 			//use ssh password
-			if(isset($service['ssh_password'])) {
+			if(isset($service['ssh_password']) && !empty($service['ssh_password'])){
 				if(!$ssh->login($service['ssh_username'], $service['ssh_password'])){
 					$this->res->message = "SSH login with pw failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
-			} else if(isset($service['ssh_key'])){ //use ssh key
+			} else if(isset($service['ssh_key']) && !empty($service['ssh_key'])){ //use ssh key
+				include_once('Crypt/RSA.php');
 				$key = new Crypt_RSA();
 				$key->loadKey($service['ssh_key']);
-				if (!$ssh->login('username', $key)) {
+				if (!$ssh->login($service['ssh_username'], $key)) {
 				    $this->res->message = "SSH login with key failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
@@ -121,15 +122,16 @@ class ServiceController extends DooController {
 
 			$ssh = new Net_SSH2($service['ip'], $service['ssh_port']);
 			//use ssh password
-			if(isset($service['ssh_password'])) {
+			if(isset($service['ssh_password']) && !empty($service['ssh_password'])){
 				if(!$ssh->login($service['ssh_username'], $service['ssh_password'])){
 					$this->res->message = "SSH login with pw failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
-			} else if(isset($service['ssh_key'])){ //use ssh key
+			} else if(isset($service['ssh_key']) && !empty($service['ssh_key'])){ //use ssh key
+				include_once('Crypt/RSA.php');
 				$key = new Crypt_RSA();
 				$key->loadKey($service['ssh_key']);
-				if (!$ssh->login('username', $key)) {
+				if (!$ssh->login($service['ssh_username'], $key)) {
 				    $this->res->message = "SSH login with key failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
