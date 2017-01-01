@@ -207,13 +207,13 @@ class Net_Gearman_Job_deploy extends Net_Gearman_Job_Common {
 		$ssh = new Net_SSH2($ip, $vm->ssh_port);
 
 		//use ssh password
-		if(isset($vm->ssh_password) && !empty($vm->ssh_password)) {
+		if(isset($vm->ssh_password) && !empty($vm->ssh_password)){
 			if(!$ssh->login($vm->ssh_username, $vm->ssh_password)){
 				$vm->deploy_status = "SSH login with pw failed : " . $vm->ip . "@" . $vm->ssh_username;
 				$vm->update();
 				throw new Net_Gearman_Job_Exception("SSH login with pw failed : " . $vm->ip . "@" . $vm->ssh_username);
 			}
-		} else if(isset($vm->ssh_key) && !empty($vm->ssh_key))){ //use ssh key
+		} else if(isset($vm->ssh_key) && !empty($vm->ssh_key)){ //use ssh key
 			include_once('Crypt/RSA.php');
 			$key = new Crypt_RSA();
 			$key->loadKey($vm->ssh_key);

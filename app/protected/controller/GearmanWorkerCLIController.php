@@ -2,41 +2,6 @@
 
 class GearmanWorkerCLIController extends DooCliController {
 
-
-	function test(){
-
-		set_include_path(get_include_path() . PATH_SEPARATOR .dirname(Doo::conf()->SITE_PATH)  . '/include/Net_Gearman');
-
-
-		require_once 'Net/Gearman/Client.php';
-
-		$client = new Net_Gearman_Client('localhost:4730');
-		var_dump($client->deploy(array(
-		    'userid' => 5555,
-		    'action' => 'new-comment'
-		)));
-
-				var_dump($client->start(array(
-		    'userid' => 5555,
-		    'action' => 'new-comment'
-		)));
-
-		var_dump($client->stop(array(
-		    'userid' => 5555,
-		    'action' => 'new-comment'
-		)));
-
-
-
-
-
-		var_dump($client->update(array(
-		    'userid' => 5555,
-		    'action' => 'new-comment'
-		)));
-
-	}
-
 	//
 	// Usage: php cli.php worker function
 	//
