@@ -1,0 +1,45 @@
+sudo su root
+
+systemctl stop firewalld
+systemctl disable firewalld
+
+nano /etc/sysconfig/selinux >> disabled
+
+adduser vbox
+passwd vbox (generate random password for account http://passwordsgenerator.net/)
+usermod -a -G vboxusers vbox
+
+yum install gcc make kernel-devel
+
+cd /etc/yum.repos.d
+wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+yum install VirtualBox-5.1
+
+echo 'VBOXWEB_USER=vbox' > /etc/default/virtualbox
+echo 'VBOXWEB_HOST=0.0.0.0' >> /etc/default/virtualbox (required for remote connectivity)
+
+systemctl start vboxdrv
+systemctl enable vboxdrv
+systemctl start vboxweb-service
+systemctl enable vboxweb-service
+
+VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.1.12-112440.vbox-extpack 
+
+
+yum install mariadb-server gearman httpd php php-pear php-soap php-pdo php-mysql php-mbstring git
+
+systemctl start httpd
+systemctl enable httpd
+
+
+systemctl start gearmand
+systemctl enable gearmand
+
+systemctl start mariadb
+systemctl enable mariadb
+mysql_secure_installation (optional)
+
+
+cd /var/www/html
+git clone https://github.com/hurdad/lgsm-ui
+cd lgsm-ui
