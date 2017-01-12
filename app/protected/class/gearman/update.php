@@ -63,7 +63,7 @@ class Net_Gearman_Job_update extends Net_Gearman_Job_Common
 					$this->res->message = "SSH login with pw failed : " . $service['ip'] . "@" . $service['ssh_username'];
 					return;
 				}
-			} else if(isset($service['ssh_key']) && !empty($service['ssh_key']){ //use ssh key
+			} else if(isset($service['ssh_key']) && !empty($service['ssh_key'])){ //use ssh key
 				include_once('Crypt/RSA.php');
 				$key = new Crypt_RSA();
 				$key->loadKey($service['ssh_key']);
