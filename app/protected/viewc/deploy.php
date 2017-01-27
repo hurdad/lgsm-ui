@@ -109,6 +109,7 @@
                             <li vm-id="<?php echo $v['data']['id'] ?>"><a href="ssh://<?php echo $v['data']['ssh_username'] . "@" .  $v['data']['ip']; ?>">SSH Access</a></li>
                             <li action="resize" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Resize</a></li>
                             <li action="delete" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Delete</a></li>
+                            <li op="refresh/ip" vm-id="<?php echo $v['data']['id'] ?>"><a href="#">Refresh IP</a></li>
                           </ul>
                         </div>
                         <div class="btn-group" role="group">

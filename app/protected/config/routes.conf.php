@@ -69,6 +69,7 @@ $route['post']['/virtualbox/stop/:id'] = array('VirtualBoxController', 'stop', '
 $route['post']['/virtualbox/start/:id'] = array('VirtualBoxController', 'start', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
 $route['post']['/virtualbox/resize/:id/:cpu/:mem'] = array('VirtualBoxController', 'resize', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/', 'cpu' => '/^\d+$/', 'mem' => '/^\d+$/'));
 $route['post']['/virtualbox/delete/:id'] = array('VirtualBoxController', 'delete', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
+$route['post']['/virtualbox/refresh/ip/:id'] = array('VirtualBoxController', 'refresh_ip', 'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));
 
 //service routes (ssh)
 $route['post']['/service/startall/:id'] = array('ServiceController', 'startall',  'authName'=>'lgsm-ui Admin', 'auth' => $user, 'authFail'=>'Unauthorized!', 'match'=> array('id' => '/^\d+$/'));

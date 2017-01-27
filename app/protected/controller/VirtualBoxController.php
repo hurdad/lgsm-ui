@@ -327,5 +327,68 @@ class VirtualBoxController extends DooController {
 		//done
 		$this->res->success = true;
 	}
+
+	function refresh_ip() {
+
+		//query db
+		$vbox_id = $this->params['id'];
+		$sql_vboxes = "SELECT 
+			    virtualboxes.id, url, vbox_soap_endpoints.username, password, hostname, ip, deploy_status
+			FROM
+			    virtualboxes
+			        JOIN
+			    vbox_soap_endpoints ON virtualboxes.vbox_soap_endpoints_id = vbox_soap_endpoints.id
+			WHERE
+			    virtualboxes.id = " . $vbox_id;
+		$vbox = Doo::db()->fetchRow($sql_vboxes);
+		if(isset($vbox) == 0){
+			$this->res->message = "VM doesnt exist!";
+			return;
+		}
+
+		$vm = Doo::db()->getOne('Virtualboxes', array('where' => 'id = ?', 'param' => array($vbox_id)));
+        if(!isset($vm)){
+        	throw new Net_Gearman_Job_Exception("Invalid Virtualbox!");
+        }
+
+		//vbox soap config
+		$conf = new phpVBoxConfigClass;
+		$conf->location = $vbox['url'];
+		$conf->username = $vbox['username'];
+		$conf->password = $vbox['password']; 
+
+		//get ip from vbox connector and update db
+		try{
+			$vbox_conn = new vboxconnector(false, $conf);		
+			$machine = $vbox_conn->remote_vboxGetMachines(array("vm"=> $vbox['hostname']));
+			$machine_id = $machine[0]["id"];
+			unset($vbox_conn); //disconnect
+
+			$vbox = new vboxconnector(false, $conf); //reconnect
+
+			//get network properties
+			$network = $vbox->remote_machineEnumerateGuestProperties(array("vm" => $machine_id, "pattern" =>"/VirtualBox/GuestInfo/Net/0/V4/IP"));
+
+			//ipv4 addy
+			$ip = $network[1][0];
+
+			//check for ip
+			if (preg_match("/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i", $ip)) {
+				$vm->ip = $ip;
+				$vm->update(); //update db
+			}
+
+			unset($vbox); //disconnect
+
+		} catch (Exception $e) {
+		    $this->res->success = false;
+		    $this->res->message = $e->getMessage();
+		    return;
+		}
+
+		//done
+		$this->res->success = true;
+
+	}
 }
 ?>
