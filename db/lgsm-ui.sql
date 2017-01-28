@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `lgsm-ui`.`services` (
   `games_id` INT(11) NOT NULL,
   `script_name` VARCHAR(45) NOT NULL,
   `port` INT(11) NOT NULL,
+  `query_port` INT(11),
   `is_default` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_services_games_idx` (`games_id` ASC),

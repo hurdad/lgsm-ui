@@ -118,6 +118,7 @@
                       <tr>
                         <th>Script Name</th>
                         <th>Port</th>
+                        <th>Query Port</th>
                         <th></th>
                         <th></th>
                       </tr>
@@ -127,6 +128,7 @@
                       <tr>
                         <td><?php echo $s['script_name'];?></td>
                         <td><?php echo $s['port'];?></td>
+                        <td><?php echo $s['query_port'];?></td>
                         <td width="90"><button class="btn btn-sm btn-info" action="edit-service" service-id="<?php echo $s['id'];?>" type="button">Edit</a></td>
                         <td width="90"><button class="btn btn-sm btn-danger" action="delete-service" service-id="<?php echo $s['id'];?>" type="button">Delete</a></td>
                       </tr>
@@ -441,6 +443,12 @@
                 </div>
               </div>
               <div class="form-group">
+                <label for="edit-service-query-port-text" class="col-sm-3 control-label">Query Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="edit-service-query-port-text">
+                </div>
+              </div>
+              <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-8">
                   <div class="checkbox">
                     <label>
@@ -489,6 +497,12 @@
                 <label for="add-service-port-text" class="col-sm-3 control-label">Port</label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" id="add-service-port-text">
+                </div>
+              </div>
+               <div class="form-group">
+                <label for="add-service-query-port-text" class="col-sm-3 control-label">Query Port</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="add-service-query-port-text">
                 </div>
               </div>
               <div class="form-group">

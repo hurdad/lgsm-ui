@@ -74,6 +74,8 @@
                 <thead>
                   <tr>
                     <th>Server Name</th>
+                    <th>IP</th>
+                    <th>Port</th>
                     <th>Map</th>
                     <th>Players</th>
                     <th></th>
@@ -83,9 +85,17 @@
 <?php foreach($services as $s): ?>                
                   <tr>
                     <td><?php echo isset($s['query']['HostName']) ? $s['query']['HostName'] : 'N/A'; ?></td>
+                    <td><?php echo isset($s['data']['ip']) ? $s['data']['ip'] : 'N/A'; ?></td>
+                    <td><?php echo isset($s['data']['port']) ? $s['data']['port'] : 'N/A'; ?></td>
                     <td><?php echo isset($s['query']['Map']) ? $s['query']['Map']: 'N/A'; ?></td>
                     <td><?php echo isset($s['query']['Players']) ? $s['query']['Players'] . " / " . $s['query']['MaxPlayers'] : 'N/A' ;?></td>
-                    <td width="90"><a class="btn btn-sm btn-success" type="button" href="<?php echo ($s['data']['launch_uri'] != '') ? $s['data']['launch_uri'] . $s['data']['ip'] . ":" . $s['data']['port'] : '#'; ?>" <?php echo ($s['data']['launch_uri'] == '') ? 'disabled' : ''; ?>>Connect</a></td>
+                    <td width="90">
+                      <?php 
+                        if($s['data']['launch_uri'] != ''){
+                          echo "<a class=\"btn btn-sm btn-success\" type=\"button\" href=\"" . $s['data']['launch_uri'] . $s['data']['ip'] . ":" . $s['data']['port'] . "\">Connect</a>";
+                        }
+                      ?>
+                    </td>
                   </tr>
 <?php endforeach; ?>
                 </tbody>

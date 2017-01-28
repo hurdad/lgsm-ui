@@ -10,6 +10,7 @@ INSERT INTO query_engines(name, launch_uri) VALUES('None' ,'');
 INSERT INTO query_engines(name, launch_uri) VALUES('SOURCE' ,'steam://connect/');
 INSERT INTO query_engines(name, launch_uri) VALUES('GOLDSOURCE' ,'steam://connect/');
 INSERT INTO query_engines(name, launch_uri) VALUES('Team Speak' ,'ts3server://');
+INSERT INTO query_engines(name, launch_uri) VALUES('gamespy1' ,'');
  
 INSERT INTO games (query_engines_id, full_name, folder_name, glibc_version_min, hidden) VALUES (1, '7 Days To Die', '7DaysToDie', 2.15, 0);
 INSERT INTO services (games_id, script_name, port, is_default) VALUES(LAST_INSERT_ID(), 'sdtdserver', 26900, 1);

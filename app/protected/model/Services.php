@@ -24,13 +24,18 @@ class Services extends DooModel{
     public $port;
 
     /**
+     * @var int Max length is 11.
+     */
+    public $query_port;
+
+    /**
      * @var tinyint Max length is 1.
      */
     public $is_default;
 
     public $_table = 'services';
     public $_primarykey = 'id';
-    public $_fields = array('id','games_id','script_name','port','is_default');
+    public $_fields = array('id','games_id','script_name','port','query_port','is_default');
 
     public function getVRules() {
         return array(
@@ -55,6 +60,12 @@ class Services extends DooModel{
                         array( 'integer' ),
                         array( 'maxlength', 11 ),
                         array( 'notnull' ),
+                ),
+
+                'query_port' => array(
+                        array( 'integer' ),
+                        array( 'maxlength', 11 ),
+                        array( 'optional' ),
                 ),
 
                 'is_default' => array(

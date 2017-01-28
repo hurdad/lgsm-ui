@@ -16,7 +16,7 @@ class DesktopController extends DooController {
 
 		//get services
 		$sql_services = "SELECT 
-		    games.id as games_id , services.id as id, games.full_name, script_name, port
+		    games.id as games_id , services.id as id, games.full_name, script_name, query_port, port
 		FROM
 		    services
 		        JOIN
@@ -182,7 +182,7 @@ class DesktopController extends DooController {
 		require dirname(Doo::conf()->SITE_PATH) . "/include/PHP-Source-Query/SourceQuery/bootstrap.php";
 	
 		$sql = "SELECT 
-		    full_name, ip, port, query_engines.name AS query_engine_name, launch_uri
+		    full_name, ip, port, query_port, query_engines.name AS query_engine_name, launch_uri
 		FROM
 		    virtualboxes
 		        JOIN
@@ -220,6 +220,16 @@ class DesktopController extends DooController {
 				} catch (Exception $e) {
     				//echo 'Caught exception: ',  $e->getMessage(), "\n";
     			}
+			} else if($service['query_engine_name'] == "gamespy1"){
+				$gs1 = new gamespy1();
+				$result = $gs1->query($service['ip'], $service['query_port'], 500);
+
+				//extract query data
+				$arr['query']['HostName'] = $gs1->getiteminfo('hostname', $result);
+				$arr['query']['Map'] = $gs1->getiteminfo('mapname', $result);
+				$arr['query']['Players'] = $gs1->getiteminfo('numplayers', $result);
+				$arr['query']['MaxPlayers'] =  $gs1->getiteminfo('maxplayers', $result);
+				
 			}
 
 			$arr['data'] = $service;
