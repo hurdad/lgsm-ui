@@ -237,7 +237,7 @@ class DesktopController extends DooController {
 				//extract query data
 				$arr['query']['HostName'] = $result['sv_hostname'];
 				$arr['query']['Map'] = $result['mapname'];
-				$arr['query']['Players'] = isset($result['players']) ? count($result['players']) : '';
+				$arr['query']['Players'] = isset($result['players']) ? count($result['players']) : '0';
 				$arr['query']['MaxPlayers'] = $result['sv_maxclients'];
 			}
 
