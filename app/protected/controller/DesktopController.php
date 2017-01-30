@@ -201,6 +201,8 @@ class DesktopController extends DooController {
 		$servers = array();
 		foreach(Doo::db()->fetchAll($sql) as $service){
 
+			//var_dump($service);
+
 			$arr = array();
 			if($service['query_engine_name'] == "SOURCE"){
 				try {
@@ -229,7 +231,14 @@ class DesktopController extends DooController {
 				$arr['query']['Map'] = $gs1->getiteminfo('mapname', $result);
 				$arr['query']['Players'] = $gs1->getiteminfo('numplayers', $result);
 				$arr['query']['MaxPlayers'] =  $gs1->getiteminfo('maxplayers', $result);
+			} else if($service['query_engine_name'] == "quake3"){
+				$result = GameServerQuery::Quake3($service['ip'], $service['port']); 
 				
+				//extract query data
+				$arr['query']['HostName'] = $result['sv_hostname'];
+				$arr['query']['Map'] = $result['mapname'];
+				$arr['query']['Players'] = isset($result['players']) ? count($result['players']) : '';
+				$arr['query']['MaxPlayers'] = $result['sv_maxclients'];
 			}
 
 			$arr['data'] = $service;
