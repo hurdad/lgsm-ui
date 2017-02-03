@@ -207,7 +207,7 @@ class DesktopController extends DooController {
 			if($service['query_engine_name'] == "SOURCE"){
 				try {
 					$sq = new SourceQuery( );
-					$sq->Connect($service['ip'], $service['port'], 1, SourceQuery :: SOURCE);
+					$sq->Connect($service['ip'], !empty($service['query_port']) ? $service['query_port'] : $service['port'] , 1, SourceQuery :: SOURCE);
 					$arr['query'] = $sq->GetInfo();
 					$sq->Disconnect();
 				} catch (Exception $e) {
