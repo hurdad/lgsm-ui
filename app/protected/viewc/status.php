@@ -92,7 +92,7 @@
                     <td width="90">
                       <?php 
                         if($s['data']['launch_uri'] != ''){
-                          echo "<a class=\"btn btn-sm btn-success\" type=\"button\" href=\"" . $s['data']['launch_uri'] . $s['data']['ip'] . ":" . $s['data']['port'] . "\">Connect</a>";
+                          echo "<a class=\"btn btn-sm btn-success\" type=\"button\" href=\"" . $s['data']['launch_uri'] . $s['data']['ip'] . ":" . (!empty($s['data']['query_port']) ? $s['data']['query_port'] : $s['data']['port']) . "\">Connect</a>";
                         }
                       ?>
                     </td>
