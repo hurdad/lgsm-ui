@@ -61,7 +61,7 @@
       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <?php $cnt=0; foreach($this->data['servers'] as $g => $services): ?>
         <div class="panel panel-primary">
-          <div class="panel-heading clearfix" role="tab" id="heading<?php echo $cnt ?>">
+          <div class="panel-heading clearfix" <?php echo ($this->data['counts'][$g]['MaxPlayers'] == 0 ? "style=\"background-color:#ea3131;\"" : ($this->data['counts'][$g]['Players'] > 0 ? "style=\"background-color:#24912f;\"" : "style=\"background-color:#337ab7;\"")) ; ?>role="tab" id="heading<?php echo $cnt ?>">
             <h4 class="panel-title">
               <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $cnt ?>" aria-expanded="true" aria-controls="collapse<?php echo $cnt ?>">
                 <?php echo $g . " - " . $this->data['counts'][$g]['Players'] . " / " . $this->data['counts'][$g]['MaxPlayers']; ?>
