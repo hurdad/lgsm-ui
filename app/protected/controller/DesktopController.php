@@ -239,6 +239,15 @@ class DesktopController extends DooController {
 				$arr['query']['Map'] = $result['mapname'];
 				$arr['query']['Players'] = isset($result['players']) ? count($result['players']) : '0';
 				$arr['query']['MaxPlayers'] = $result['sv_maxclients'];
+			} else if ($service['query_engine_name'] == "mumble"){
+				$murmur = new MurmurQuery($service['ip'], $service['query_port'], 300, 'json');
+				$murmur->query();
+				if($murmur->is_online()){
+					$response = $murmur->get_status();
+					$arr['query']['MaxPlayers'] = $response['original']['x_gtmurmur_max_users'];
+					$cnt = count($response['users']);
+					$arr['query']['Players'] = $cnt > 0 ? $cnt/2 : 0;
+				}
 			}
 
 			$arr['data'] = $service;
