@@ -244,10 +244,27 @@ class DesktopController extends DooController {
 				$murmur->query();
 				if($murmur->is_online()){
 					$response = $murmur->get_status();
+
+					//extract query data
 					$arr['query']['MaxPlayers'] = $response['original']['x_gtmurmur_max_users'];
 					$cnt = count($response['users']);
 					$arr['query']['Players'] = $cnt > 0 ? $cnt/2 : 0;
 				}
+			} else if ($service['query_engine_name'] == "won"){
+
+				require_once(dirname(Doo::conf()->SITE_PATH) . '/include/GameQ-3/src/GameQ/Autoloader.php');
+				$GameQ = new \GameQ\GameQ();
+				$GameQ->addServer([
+				    'type' => 'won',
+				    'host' => $service['ip'] . ":" . $service['port'],
+				]);
+				$result = $GameQ->process()[$service['ip'] . ":" . $service['port']];
+
+				//extract query data
+				$arr['query']['HostName'] = $result['hostname'];
+				$arr['query']['Map'] = $result['map'];
+				$arr['query']['Players'] = count($result['players']);
+				$arr['query']['MaxPlayers'] = $result['max_players'];
 			}
 
 			$arr['data'] = $service;
